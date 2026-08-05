@@ -137,6 +137,12 @@ function Home() {
               </div>
             </div>
           </div>
+
+          <div className="hero-image">
+            <div className="red-curve"></div>
+            <img src="/images/foto2.png" alt="Alat kesehatan" />
+            <div className="dot-pattern"></div>
+          </div>
         </div>
       </section>
 
