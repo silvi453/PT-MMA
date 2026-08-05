@@ -20,12 +20,6 @@ function Footer() {
             Solusi kesehatan terpercaya untuk mendukung fasilitas kesehatan di
             seluruh Indonesia.
           </p>
-          <div className="footer-social">
-            <a href="#facebook" aria-label="Facebook">f</a>
-            <a href="#instagram" aria-label="Instagram">📷</a>
-            <a href="#linkedin" aria-label="LinkedIn">in</a>
-            <a href="#youtube" aria-label="YouTube">▶</a>
-          </div>
         </div>
 
         {/* KOLOM 2: MENU */}
@@ -39,17 +33,7 @@ function Footer() {
           <Link to="/contact">Kontak</Link>
         </div>
 
-        {/* KOLOM 3: PRODUK */}
-        <div className="footer-column">
-          <h3>PRODUK</h3>
-          <Link to="/products">Alat Diagnostik</Link>
-          <Link to="/products">Alat Rumah Sakit</Link>
-          <Link to="/products">Alat Laboratorium</Link>
-          <Link to="/products">Alat Perawatan</Link>
-          <Link to="/products">Suku Cadang</Link>
-        </div>
-
-        {/* KOLOM 4: HUBUNGI KAMI */}
+        {/* KOLOM 3: HUBUNGI KAMI */}
         <div className="footer-column footer-contact">
           <h3>HUBUNGI KAMI</h3>
           <p>
@@ -63,12 +47,11 @@ function Footer() {
           <p>
             <span>✉</span> adm.mitrameditamaabadi@gmail.com
           </p>
-          <p>
-            <span>🕐</span> Senin - Jumat: 08.00 - 17.00 WIB
-          </p>
+          <p>    Senin - Jumat: 08.00 - 17.00 WIB</p>
+          <p>    Sabtu: 08.00 - 14.00 WIB</p>
         </div>
 
-        {/* KOLOM 5: NEWSLETTER */}
+        {/* KOLOM 4: NEWSLETTER */}
         <div className="footer-column footer-newsletter">
           <h3>NEWSLETTER</h3>
           <p>
