@@ -37,15 +37,14 @@ function Footer() {
         <div className="footer-column footer-contact">
           <h3>HUBUNGI KAMI</h3>
           <p>
-            <span>📍</span>
             Jl. Simpang Danau Limboto Timur 2, Blok A5 - 132, Sawojajar,
             Kec. Kedungkandang, Kota Malang, Jawa Timur
           </p>
           <p>
-            <span>📞</span> (0341) 727299
+            (0341) 727299
           </p>
           <p>
-            <span>✉</span> adm.mitrameditamaabadi@gmail.com
+            adm.mitrameditamaabadi@gmail.com
           </p>
           <p>    Senin - Jumat: 08.00 - 17.00 WIB</p>
           <p>    Sabtu: 08.00 - 14.00 WIB</p>
