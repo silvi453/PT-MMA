@@ -1,0 +1,426 @@
+/* ==================================================
+   ADMIN MODAL
+================================================== */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  padding: 30px;
+
+  z-index: 9999;
+}
+
+
+/* ==================================================
+   KOTAK MODAL
+================================================== */
+
+.admin-modal-box {
+  width: 100%;
+  max-width: 420px;
+
+  background: #ffffff;
+
+  padding: 40px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  text-align: center;
+
+  animation: adminModalShow 0.2s ease;
+}
+
+
+/* ==================================================
+   ANIMASI
+================================================== */
+
+@keyframes adminModalShow {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ==================================================
+   ICON MODAL
+================================================== */
+
+.admin-modal-logo {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+
+/* BERHASIL */
+
+.admin-modal-logo.success {
+  background: #fff1f1;
+
+  color: #d71920;
+}
+
+
+/* KONFIRMASI */
+
+.admin-modal-logo.confirm {
+  background: #fff1f1;
+
+  color: #d71920;
+}
+
+
+/* ERROR */
+
+.admin-modal-logo.error {
+  background: #fff1f1;
+
+  color: #d71920;
+}
+
+
+/* ==================================================
+   JUDUL
+================================================== */
+
+.admin-modal-box h2 {
+  margin: 0 0 8px;
+
+  color: #171717;
+
+  font-size: 24px;
+
+  font-weight: 700;
+}
+
+
+/* ==================================================
+   DESKRIPSI
+================================================== */
+
+.admin-modal-box p {
+  margin: 0 0 30px;
+
+  color: #777;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* ==================================================
+   BUTTON AREA
+================================================== */
+
+.admin-modal-actions {
+  display: flex;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+
+/* ==================================================
+   BUTTON
+================================================== */
+
+.admin-modal-confirm,
+.admin-modal-cancel {
+  flex: 1;
+
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+/* ==================================================
+   BUTTON MERAH
+================================================== */
+
+.admin-modal-confirm {
+  background: #d71920;
+
+  color: #ffffff;
+}
+
+.admin-modal-confirm:hover {
+  background: #bd151b;
+}
+
+
+/* ==================================================
+   BUTTON BATAL
+================================================== */
+
+.admin-modal-cancel {
+  background: #eeeeee;
+
+  color: #333;
+}
+
+.admin-modal-cancel:hover {
+  background: #dddddd;
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 480px) {
+
+  .admin-modal-overlay {
+    padding: 20px;
+  }
+
+  .admin-modal-box {
+    padding: 30px 25px;
+  }
+
+  .admin-modal-actions {
+    flex-direction: column;
+  }
+
+  .admin-modal-confirm,
+  .admin-modal-cancel {
+    width: 100%;
+  }
+
+}
+
+/* ==================================================
+   ADMIN MODAL
+================================================== */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.35);
+
+  padding: 20px;
+
+  z-index: 9999;
+}
+
+
+/* ==================================================
+   MODAL BOX
+================================================== */
+
+.admin-modal-box {
+  width: 100%;
+  max-width: 420px;
+
+  background: #ffffff;
+
+  padding: 35px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+
+  animation: adminModalShow 0.2s ease;
+}
+
+
+/* ==================================================
+   ANIMATION
+================================================== */
+
+@keyframes adminModalShow {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ==================================================
+   ICON
+================================================== */
+
+.admin-modal-icon {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+
+/* SUCCESS */
+
+.admin-modal-icon.success {
+  background: #fff1f1;
+  color: #d71920;
+}
+
+
+/* ERROR */
+
+.admin-modal-icon.error {
+  background: #fff1f1;
+  color: #d71920;
+}
+
+
+/* CONFIRM */
+
+.admin-modal-icon.confirm {
+  background: #fff1f1;
+  color: #d71920;
+}
+
+
+/* ==================================================
+   TEXT
+================================================== */
+
+.admin-modal-box h2 {
+  margin: 0 0 10px;
+
+  color: #171717;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+
+.admin-modal-box p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* ==================================================
+   BUTTON
+================================================== */
+
+.admin-modal-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+
+.admin-modal-confirm,
+.admin-modal-cancel {
+  min-width: 100px;
+
+  padding: 11px 18px;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+/* BUTTON UTAMA */
+
+.admin-modal-confirm {
+  border: none;
+
+  background: #d71920;
+
+  color: #ffffff;
+}
+
+
+.admin-modal-confirm:hover {
+  background: #bd151b;
+}
+
+
+/* BUTTON BATAL */
+
+.admin-modal-cancel {
+  border: 1px solid #dddddd;
+
+  background: #ffffff;
+
+  color: #333333;
+}
+
+
+.admin-modal-cancel:hover {
+  background: #f5f5f5;
+}

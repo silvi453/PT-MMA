@@ -1,0 +1,589 @@
+.admin-pengguna {
+min-height: 100vh;
+padding: 32px;
+background: #f5f6f8;
+color: #1f2937;
+box-sizing: border-box;
+}
+
+/* ========================================
+HEADER
+======================================== */
+
+.pengguna-page-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+margin-bottom: 28px;
+}
+
+.pengguna-header-label {
+display: inline-block;
+margin-bottom: 7px;
+color: #c62828;
+font-size: 12px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+.pengguna-page-header h1 {
+margin: 0;
+color: #1f2937;
+font-size: 32px;
+font-weight: 750;
+}
+
+.pengguna-page-header p {
+margin: 8px 0 0;
+color: #6b7280;
+font-size: 14px;
+}
+
+.pengguna-total-box {
+min-width: 130px;
+padding: 17px 20px;
+border: 1px solid #f1d3d3;
+border-radius: 14px;
+background: #ffffff;
+text-align: center;
+box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+.pengguna-total-box span {
+display: block;
+margin-bottom: 4px;
+color: #6b7280;
+font-size: 12px;
+}
+
+.pengguna-total-box strong {
+color: #c62828;
+font-size: 27px;
+}
+
+/* ========================================
+TOOLBAR
+======================================== */
+
+.pengguna-toolbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+margin-bottom: 15px;
+padding: 22px 24px;
+border-radius: 15px;
+background: #ffffff;
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.045);
+}
+
+.pengguna-toolbar h2 {
+margin: 0;
+color: #1f2937;
+font-size: 20px;
+}
+
+.pengguna-toolbar p {
+margin: 5px 0 0;
+color: #7b8491;
+font-size: 13px;
+}
+
+.pengguna-add-btn {
+display: flex;
+align-items: center;
+gap: 7px;
+min-height: 44px;
+padding: 0 18px;
+border: none;
+border-radius: 9px;
+background: #c62828;
+color: #ffffff;
+font-size: 14px;
+font-weight: 650;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+
+.pengguna-add-btn:hover {
+background: #a92020;
+transform: translateY(-1px);
+}
+
+.pengguna-add-btn span {
+font-size: 19px;
+}
+
+/* ========================================
+FORM
+======================================== */
+
+.pengguna-form-card {
+margin-bottom: 25px;
+padding: 28px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0, 0, 0, 0.055);
+}
+
+.pengguna-form-heading {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 20px;
+padding-bottom: 20px;
+margin-bottom: 24px;
+border-bottom: 1px solid #eeeeee;
+}
+
+.pengguna-form-heading h2 {
+margin: 0;
+font-size: 22px;
+}
+
+.pengguna-form-heading p {
+margin: 7px 0 0;
+color: #7b8491;
+font-size: 13px;
+}
+
+.pengguna-edit-badge {
+padding: 7px 12px;
+border-radius: 999px;
+background: #fff1f1;
+color: #c62828;
+font-size: 12px;
+font-weight: 700;
+}
+
+.pengguna-form-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 8px;
+color: #374151;
+font-size: 14px;
+font-weight: 650;
+}
+
+.form-group label span {
+margin-left: 4px;
+color: #dc2626;
+}
+
+.form-group input,
+.form-group select {
+width: 100%;
+min-height: 46px;
+padding: 12px 14px;
+border: 1px solid #d8dce2;
+border-radius: 10px;
+outline: none;
+background: #ffffff;
+color: #1f2937;
+font-family: inherit;
+font-size: 14px;
+box-sizing: border-box;
+transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+border-color: #c62828;
+box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.08);
+}
+
+.form-group small {
+display: block;
+margin-top: 7px;
+color: #9ca3af;
+font-size: 11px;
+line-height: 1.5;
+}
+
+.pengguna-form-actions {
+display: flex;
+gap: 10px;
+margin-top: 24px;
+padding-top: 22px;
+border-top: 1px solid #eeeeee;
+}
+
+.pengguna-submit-btn,
+.pengguna-cancel-btn {
+min-height: 44px;
+padding: 0 20px;
+border: none;
+border-radius: 9px;
+font-size: 14px;
+font-weight: 650;
+cursor: pointer;
+}
+
+.pengguna-submit-btn {
+background: #c62828;
+color: #ffffff;
+}
+
+.pengguna-submit-btn:hover {
+background: #a92020;
+}
+
+.pengguna-cancel-btn {
+background: #e8e9ec;
+color: #3f4650;
+}
+
+.pengguna-cancel-btn:hover {
+background: #dcdfe4;
+}
+
+/* ========================================
+SEARCH
+======================================== */
+
+.pengguna-search-box {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 24px;
+padding: 0 14px;
+min-height: 48px;
+border: 1px solid #e1e4e8;
+border-radius: 11px;
+background: #ffffff;
+}
+
+.pengguna-search-box > span {
+font-size: 16px;
+}
+
+.pengguna-search-box input {
+flex: 1;
+width: 100%;
+height: 46px;
+border: none;
+outline: none;
+background: transparent;
+color: #1f2937;
+font-family: inherit;
+font-size: 13px;
+}
+
+.pengguna-search-box button {
+border: none;
+background: transparent;
+color: #9ca3af;
+font-size: 22px;
+cursor: pointer;
+}
+
+.pengguna-search-box button:hover {
+color: #c62828;
+}
+
+/* ========================================
+LIST
+======================================== */
+
+.pengguna-list-section {
+padding-bottom: 30px;
+}
+
+.pengguna-list-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+margin-bottom: 15px;
+}
+
+.pengguna-list-header h2 {
+margin: 0;
+font-size: 21px;
+}
+
+.pengguna-list-header p {
+margin: 5px 0 0;
+color: #7b8491;
+font-size: 13px;
+}
+
+.pengguna-refresh-btn {
+min-height: 39px;
+padding: 0 15px;
+border: 1px solid #d8dce2;
+border-radius: 8px;
+background: #ffffff;
+color: #4b5563;
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+}
+
+.pengguna-refresh-btn:hover {
+border-color: #c62828;
+color: #c62828;
+}
+
+/* ========================================
+TABLE
+======================================== */
+
+.pengguna-table-wrapper {
+overflow-x: auto;
+border: 1px solid #eceef1;
+border-radius: 15px;
+background: #ffffff;
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.045);
+}
+
+.pengguna-table {
+width: 100%;
+min-width: 780px;
+border-collapse: collapse;
+}
+
+.pengguna-table th {
+padding: 15px 18px;
+border-bottom: 1px solid #eeeeee;
+background: #fafafa;
+color: #6b7280;
+font-size: 11px;
+font-weight: 700;
+text-align: left;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.pengguna-table td {
+padding: 16px 18px;
+border-bottom: 1px solid #f0f1f3;
+vertical-align: middle;
+}
+
+.pengguna-table tbody tr:last-child td {
+border-bottom: none;
+}
+
+.pengguna-table tbody tr:hover {
+background: #fffafa;
+}
+
+/* ========================================
+USER INFO
+======================================== */
+
+.user-info {
+display: flex;
+align-items: center;
+gap: 11px;
+}
+
+.user-avatar {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+flex-shrink: 0;
+border-radius: 50%;
+background: #c62828;
+color: #ffffff;
+font-size: 15px;
+font-weight: 700;
+}
+
+.user-info strong {
+display: block;
+margin-bottom: 3px;
+color: #1f2937;
+font-size: 13px;
+}
+
+.user-info small {
+color: #9ca3af;
+font-size: 10px;
+}
+
+.user-email {
+color: #4b5563;
+font-size: 13px;
+}
+
+.user-date {
+color: #7b8491;
+font-size: 12px;
+}
+
+/* ========================================
+ROLE
+======================================== */
+
+.role-badge {
+display: inline-flex;
+align-items: center;
+padding: 6px 11px;
+border-radius: 999px;
+font-size: 11px;
+font-weight: 700;
+}
+
+.role-admin {
+background: #fff0f0;
+color: #c62828;
+}
+
+.role-user {
+background: #f1f3f5;
+color: #59616d;
+}
+
+/* ========================================
+ACTION
+======================================== */
+
+.user-actions {
+display: flex;
+gap: 7px;
+}
+
+.user-edit-btn,
+.user-delete-btn {
+min-height: 34px;
+padding: 0 11px;
+border: none;
+border-radius: 7px;
+color: #ffffff;
+font-size: 11px;
+font-weight: 650;
+cursor: pointer;
+}
+
+.user-edit-btn {
+background: #30343b;
+}
+
+.user-edit-btn:hover {
+background: #1f2328;
+}
+
+.user-delete-btn {
+background: #c62828;
+}
+
+.user-delete-btn:hover {
+background: #a92020;
+}
+
+/* ========================================
+EMPTY / LOADING
+======================================== */
+
+.pengguna-state-box {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 230px;
+padding: 35px;
+border: 1px dashed #d9dde3;
+border-radius: 15px;
+background: #ffffff;
+text-align: center;
+}
+
+.pengguna-state-box h3 {
+margin: 8px 0 5px;
+color: #374151;
+}
+
+.pengguna-state-box p {
+margin: 0;
+color: #8a929d;
+font-size: 13px;
+}
+
+.pengguna-empty-icon {
+font-size: 36px;
+}
+
+.pengguna-loader {
+width: 28px;
+height: 28px;
+margin-bottom: 12px;
+border: 3px solid #ececec;
+border-top-color: #c62828;
+border-radius: 50%;
+animation: penggunaSpin 0.8s linear infinite;
+}
+
+@keyframes penggunaSpin {
+to {
+transform: rotate(360deg);
+}
+}
+
+/* ========================================
+RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+.admin-pengguna {
+padding: 20px;
+}
+
+.pengguna-page-header,
+.pengguna-toolbar,
+.pengguna-list-header,
+.pengguna-form-heading {
+align-items: flex-start;
+flex-direction: column;
+}
+
+.pengguna-add-btn {
+width: 100%;
+justify-content: center;
+}
+
+.pengguna-form-card {
+padding: 22px;
+}
+
+.pengguna-form-grid {
+grid-template-columns: 1fr;
+}
+
+.pengguna-form-actions {
+flex-direction: column;
+}
+
+.pengguna-submit-btn,
+.pengguna-cancel-btn {
+width: 100%;
+}
+
+.pengguna-table-wrapper {
+border-radius: 12px;
+}
+}
+
+@media (max-width: 480px) {
+.admin-pengguna {
+padding: 15px;
+}
+
+.pengguna-page-header h1 {
+font-size: 26px;
+}
+
+.pengguna-form-card {
+padding: 18px;
+}
+}
