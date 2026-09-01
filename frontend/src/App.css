@@ -1484,25 +1484,43 @@ textarea {
     font-size: 28px;
   }
 }
-.footer-contact a {
+/* =========================================
+   FOOTER - CONTACT LINK FIX
+   Khusus link nomor telepon & email
+========================================= */
+
+.footer .footer-contact a {
   display: block;
   width: fit-content;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  pointer-events: auto;
+
   position: relative;
-  z-index: 10;
+  z-index: 20;
+
+  color: #ffffff !important;
+  text-decoration: none !important;
+
+  cursor: pointer;
+  pointer-events: auto !important;
+
+  /* Supaya nyaman disentuh di HP */
+  padding: 5px 0;
+
+  /* Hilangkan delay/tampilan aneh saat tap */
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+  touch-action: manipulation;
 }
 
-.footer-contact a:hover {
-  color: #ffffff;
+.footer .footer-contact a:hover {
+  color: #ffffff !important;
   opacity: 0.7;
 }
 
-.footer-contact a:active {
+.footer .footer-contact a:active {
   opacity: 0.5;
+}
+
+/* Pastikan kolom kontak berada di atas elemen lain */
+.footer .footer-contact {
+  position: relative;
+  z-index: 10;
 }
