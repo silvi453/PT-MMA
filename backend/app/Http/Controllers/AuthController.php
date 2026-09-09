@@ -62,6 +62,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' =>
                     'Data yang diberikan tidak valid.',
+
                 'errors' =>
                     $validator->errors(),
             ], 422);
@@ -162,7 +163,7 @@ class AuthController extends Controller
         }
 
         // ========================================
-        // TOKEN
+        // BUAT TOKEN
         // ========================================
 
         $token = $user->createToken(
@@ -208,7 +209,7 @@ class AuthController extends Controller
 
 
     // ========================================
-    // USER LOGIN
+    // USER YANG SEDANG LOGIN
     // ========================================
 
     public function user(
@@ -219,4 +220,129 @@ class AuthController extends Controller
                 $request->user(),
         ]);
     }
+
+
+    // ========================================
+    // UPDATE PROFILE
+    // ========================================
+
+    public function updateProfile(
+        Request $request
+    ) {
+        // Ambil akun yang sedang login
+        $user = $request->user();
+
+        // ========================================
+        // VALIDASI
+        // ========================================
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                ],
+
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+
+                    // Email milik user sendiri boleh tetap sama
+                    'unique:users,email,' . $user->id,
+                ],
+
+                // Password boleh kosong
+                'password' => [
+                    'nullable',
+                    'string',
+                    'min:6',
+                    'confirmed',
+                ],
+            ],
+            [
+                'name.required' =>
+                    'Nama wajib diisi.',
+
+                'name.max' =>
+                    'Nama maksimal 255 karakter.',
+
+                'email.required' =>
+                    'Email wajib diisi.',
+
+                'email.email' =>
+                    'Format email tidak valid.',
+
+                'email.unique' =>
+                    'Email sudah digunakan oleh akun lain.',
+
+                'password.min' =>
+                    'Password minimal 6 karakter.',
+
+                'password.confirmed' =>
+                    'Konfirmasi password tidak cocok.',
+            ]
+        );
+
+        // ========================================
+        // JIKA VALIDASI GAGAL
+        // ========================================
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' =>
+                    'Data yang diberikan tidak valid.',
+
+                'errors' =>
+                    $validator->errors(),
+            ], 422);
+        }
+
+        // ========================================
+        // UPDATE NAMA
+        // ========================================
+
+        $user->name =
+            $request->name;
+
+        // ========================================
+        // UPDATE EMAIL
+        // ========================================
+
+        $user->email =
+            $request->email;
+
+        // ========================================
+        // UPDATE PASSWORD
+        // HANYA JIKA DIISI
+        // ========================================
+
+        if ($request->filled('password')) {
+            $user->password =
+                Hash::make(
+                    $request->password
+                );
+        }
+
+        // ========================================
+        // SIMPAN PERUBAHAN
+        // ========================================
+
+        $user->save();
+
+        // ========================================
+        // RESPONSE
+        // ========================================
+
+        return response()->json([
+            'message' =>
+                'Profil berhasil diperbarui.',
+
+            'data' =>
+                $user,
+        ]);
+    }
 }
+
