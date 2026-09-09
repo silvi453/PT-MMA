@@ -1,6 +1,6 @@
-/* =========================
-   RESET
-========================= */
+/* =========================================================
+   RESET & GLOBAL
+========================================================= */
 
 * {
   margin: 0;
@@ -12,6 +12,7 @@ html {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -22,6 +23,10 @@ body {
   color: #171717;
   background: #fff;
   overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
 }
 
 a {
@@ -43,17 +48,17 @@ a {
 .container {
   width: 90%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 
-/* =========================
+/* =========================================================
    NAVBAR
-========================= */
+========================================================= */
 
 .navbar {
   width: 100%;
-  height: 74px;
+  min-height: 74px;
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
   position: relative;
@@ -61,16 +66,18 @@ a {
 }
 
 .nav-content {
-  height: 74px;
+  min-height: 74px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 25px;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .logo-icon {
@@ -79,9 +86,11 @@ a {
   background: #fff0f0;
   color: #d71920;
   border-radius: 7px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 25px;
   font-weight: bold;
 }
@@ -95,17 +104,20 @@ a {
 .logo-text strong {
   color: #d71920;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .logo-text span {
   color: #777;
   font-size: 8px;
+  white-space: nowrap;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 34px;
+  justify-content: center;
+  gap: 30px;
 }
 
 .nav-menu a {
@@ -113,6 +125,7 @@ a {
   font-size: 11px;
   color: #222;
   padding: 29px 0;
+  white-space: nowrap;
 }
 
 .nav-menu a:hover,
@@ -122,18 +135,73 @@ a {
 
 .nav-menu a.active::after {
   content: "";
+
   position: absolute;
   bottom: 0;
   left: 0;
+
   width: 100%;
   height: 2px;
+
   background: #d71920;
 }
 
 
-/* =========================
+/* =========================================================
+   HAMBURGER MENU
+========================================================= */
+
+.menu-toggle {
+  display: none;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  background: transparent;
+
+  padding: 8px;
+
+  cursor: pointer;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+
+  z-index: 200;
+}
+
+.menu-toggle span {
+  display: block;
+
+  width: 23px;
+  height: 2px;
+
+  background: #d71920;
+
+  border-radius: 5px;
+
+  transition: all 0.25s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* =========================================================
    BUTTON HUBUNGI KAMI
-========================= */
+========================================================= */
 
 .navbar .nav-content > .contact-button {
   display: inline-flex !important;
@@ -143,7 +211,7 @@ a {
   padding: 10px 18px !important;
 
   background-color: #d71920 !important;
-  color: #ffffff !important;
+  color: #fff !important;
 
   border: 1px solid #d71920 !important;
   border-radius: 6px !important;
@@ -157,18 +225,19 @@ a {
   cursor: pointer;
 
   transition: 0.2s ease;
+
+  flex-shrink: 0;
 }
 
 .navbar .nav-content > .contact-button:hover {
   background-color: #b80f15 !important;
   border-color: #b80f15 !important;
-  color: #ffffff !important;
 }
 
 
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero {
   min-height: 385px;
@@ -192,9 +261,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    HERO TEXT
-========================= */
+========================================================= */
 
 .hero-text {
   width: 53%;
@@ -241,13 +310,14 @@ a {
 }
 
 
-/* =========================
-   BUTTON
-========================= */
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
 
 .hero-buttons {
   display: flex;
   gap: 15px;
+
   margin-top: 20px;
 }
 
@@ -265,6 +335,8 @@ a {
   font-weight: 600;
 
   transition: 0.2s;
+
+  cursor: pointer;
 }
 
 .btn-primary {
@@ -289,9 +361,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    HERO FEATURES
-========================= */
+========================================================= */
 
 .hero-features {
   display: flex;
@@ -327,6 +399,8 @@ a {
   border-radius: 50%;
 
   font-size: 17px;
+
+  flex-shrink: 0;
 }
 
 .hero-feature div:last-child {
@@ -356,12 +430,14 @@ a {
   height: 40px;
 
   background: #e5e5e5;
+
+  flex-shrink: 0;
 }
 
 
-/* =========================
+/* =========================================================
    HERO IMAGE
-========================= */
+========================================================= */
 
 .hero-image {
   position: absolute;
@@ -398,9 +474,9 @@ a {
 }
 
 
-/* =========================
-   LENGKUNGAN MERAH
-========================= */
+/* =========================================================
+   RED CIRCLE
+========================================================= */
 
 .red-circle {
   position: absolute;
@@ -422,9 +498,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    DOTS
-========================= */
+========================================================= */
 
 .dots {
   position: absolute;
@@ -450,90 +526,18 @@ a {
 }
 
 
-/* =========================
-   HERO RESPONSIVE
-========================= */
-
-@media (max-width: 900px) {
-
-  .hero-text {
-    width: 60%;
-  }
-
-  .hero-image {
-    width: 50%;
-    right: -5%;
-  }
-
-  .hero-image img {
-    width: 100%;
-  }
-}
-
-
-@media (max-width: 650px) {
-
-  .hero {
-    min-height: auto;
-  }
-
-  .hero-content {
-    min-height: auto;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero-text {
-    width: 100%;
-    padding: 40px 0 20px;
-  }
-
-  .hero-image {
-    position: relative;
-
-    width: 100%;
-    height: 300px;
-
-    right: auto;
-    top: auto;
-
-    margin-top: 10px;
-  }
-
-  .hero-image img {
-    width: 90%;
-    max-height: 280px;
-  }
-
-  .red-circle {
-    width: 140px;
-    height: 100%;
-
-    border-left-width: 25px;
-
-    left: 0;
-    top: 50%;
-  }
-
-  .hero-features {
-    flex-wrap: wrap;
-  }
-}
-
-
-/* =========================
+/* =========================================================
    SECTION
-========================= */
+========================================================= */
 
 .section {
-  padding: 42px 0;
+  padding: 55px 0;
   background: #fff;
 }
 
 .section-title {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .section-title h2 {
@@ -555,9 +559,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    KATEGORI PRODUK
-========================= */
+========================================================= */
 
 .category-grid {
   display: grid;
@@ -628,9 +632,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    PRODUK UNGGULAN
-========================= */
+========================================================= */
 
 .products-section {
   padding-top: 5px;
@@ -720,9 +724,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    ABOUT SECTION
-========================= */
+========================================================= */
 
 .about-section {
   padding: 70px 0;
@@ -748,6 +752,8 @@ a {
   border-radius: 10px;
 
   overflow: hidden;
+
+  background: #f8f8f8;
 }
 
 .about-image img {
@@ -791,11 +797,25 @@ a {
 
   margin-bottom: 13px;
 }
+.about-image {
+  width: 100%;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-
-/* =========================
+.about-image img {
+  width: 100%;
+  height: 350px;
+  display: block;
+  object-fit: cover;
+  border-radius: 15px;
+}
+/* =========================================================
    STATISTICS
-========================= */
+========================================================= */
 
 .statistics {
   grid-column: 1;
@@ -868,9 +888,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    KEUNGGULAN
-========================= */
+========================================================= */
 
 .advantages-grid {
   display: grid;
@@ -929,9 +949,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    FOOTER
-================================================== */
+========================================================= */
 
 .footer {
   width: 100%;
@@ -951,11 +971,6 @@ a {
   isolation: isolate;
 }
 
-
-/* =========================
-   FOOTER MAIN
-========================= */
-
 .footer-main {
   width: 100%;
 
@@ -967,10 +982,6 @@ a {
 
   display: grid;
 
-  /*
-    4 KOLOM
-    Sesuai dengan Footer.jsx
-  */
   grid-template-columns:
     1.4fr
     0.8fr
@@ -984,11 +995,6 @@ a {
   z-index: 10000;
 }
 
-
-/* =========================
-   FOOTER COLUMN
-========================= */
-
 .footer-column {
   min-width: 0;
 
@@ -998,11 +1004,6 @@ a {
 
   pointer-events: auto;
 }
-
-
-/* =========================
-   FOOTER BRAND
-========================= */
 
 .footer-brand {
   border-right: 1px solid rgba(255, 255, 255, 0.35);
@@ -1028,11 +1029,6 @@ a {
   margin: 0 0 20px;
 }
 
-
-/* =========================
-   FOOTER TITLE
-========================= */
-
 .footer-column h3 {
   font-size: 11px;
 
@@ -1042,11 +1038,6 @@ a {
 
   font-weight: 700;
 }
-
-
-/* =========================
-   FOOTER MENU LINKS
-========================= */
 
 .footer-column a {
   display: block;
@@ -1069,8 +1060,6 @@ a {
 
   touch-action: manipulation;
 
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-
   transition: opacity 0.2s ease;
 }
 
@@ -1081,9 +1070,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    FOOTER CONTACT
-================================================== */
+========================================================= */
 
 .footer-contact {
   position: relative;
@@ -1092,9 +1081,6 @@ a {
 
   pointer-events: auto;
 }
-
-
-/* ALAMAT */
 
 .footer-contact .footer-address {
   display: block;
@@ -1107,9 +1093,6 @@ a {
 
   color: #fff;
 }
-
-
-/* NOMOR + EMAIL */
 
 .footer-contact .footer-contact-link {
   display: block;
@@ -1159,9 +1142,6 @@ a {
   opacity: 0.5;
 }
 
-
-/* JAM OPERASIONAL */
-
 .footer-contact .footer-hours {
   display: block;
 
@@ -1175,9 +1155,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    FOOTER NEWSLETTER
-========================= */
+========================================================= */
 
 .footer-newsletter {
   position: relative;
@@ -1240,9 +1220,9 @@ a {
 }
 
 
-/* =========================
-   FOOTER SOCIAL MEDIA
-========================= */
+/* =========================================================
+   FOOTER SOCIAL
+========================================================= */
 
 .footer-social {
   display: flex;
@@ -1273,9 +1253,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    FOOTER BOTTOM
-========================= */
+========================================================= */
 
 .footer-bottom {
   width: 100%;
@@ -1296,9 +1276,9 @@ a {
 }
 
 
-/* ==================================================
-   MULTI PAGE & OTHERS
-================================================== */
+/* =========================================================
+   MULTI PAGE
+========================================================= */
 
 .page-section {
   min-height: 650px;
@@ -1361,9 +1341,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    ABOUT STATS
-========================= */
+========================================================= */
 
 .about-stats {
   display: grid;
@@ -1406,9 +1386,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    PRODUCT PAGE
-========================= */
+========================================================= */
 
 .product-page-grid {
   display: grid;
@@ -1442,83 +1422,183 @@ a {
   margin-bottom: 25px;
 }
 
-
-/* =========================
-   DETAIL PRODUCT
-========================= */
+/* =========================================
+   DETAIL PRODUK
+========================================= */
 
 .detail-product {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
   gap: 60px;
-
   align-items: center;
-
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .detail-image {
-  height: 430px;
-
-  border: 1px solid #eee;
-
-  border-radius: 10px;
-
+  width: 100%;
+  height: 450px;
+  background: #fff;
+  border-radius: 12px;
   display: flex;
-
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .detail-image img {
-  width: 80%;
-  height: 80%;
-
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.detail-content h1 {
-  font-size: 35px;
-
-  margin-bottom: 20px;
+.detail-content {
+  padding: 20px 0;
 }
 
-.detail-content > p {
+.detail-content h1 {
+  font-size: 32px;
+  color: #222;
+  margin: 12px 0 18px;
+}
+
+.detail-content p {
   color: #666;
-
   line-height: 1.8;
-
-  font-size: 13px;
-
+  font-size: 15px;
   margin-bottom: 25px;
 }
 
 .detail-content h3 {
-  font-size: 15px;
-
-  margin-bottom: 13px;
+  font-size: 18px;
+  margin: 25px 0 15px;
+  color: #222;
 }
 
 .detail-content ul {
-  list-style: none;
-
-  margin-bottom: 25px;
+  padding-left: 20px;
+  margin-bottom: 30px;
 }
 
 .detail-content li {
-  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
 
-  color: #555;
+.product-category {
+  display: inline-block;
+  font-size: 13px;
+  color: #d71920;
+  background: #fff1f1;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+}
 
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d71920;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  color: #d71920;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
   margin-bottom: 10px;
 }
 
+.back-link:hover {
+  text-decoration: underline;
+}
 
-/* =========================
+
+/* =========================================
+   DETAIL PRODUK - TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .detail-product {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+  }
+
+  .detail-image {
+    height: 380px;
+  }
+
+  .detail-content h1 {
+    font-size: 28px;
+  }
+}
+
+
+/* =========================================
+   DETAIL PRODUK - HP
+========================================= */
+
+@media (max-width: 650px) {
+  .detail-product {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .detail-image {
+    height: 320px;
+  }
+
+  .detail-content {
+    padding: 0;
+  }
+
+  .detail-content h1 {
+    font-size: 25px;
+  }
+
+  .product-price {
+    font-size: 21px;
+  }
+}
+
+/* =========================================================
+   PRODUCT NOT FOUND
+========================================================= */
+
+.product-not-found {
+  min-height: 450px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+.product-not-found h2 {
+  font-size: 25px;
+
+  margin-bottom: 12px;
+}
+
+.product-not-found p {
+  color: #777;
+
+  font-size: 12px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
    SERVICE
-========================= */
+========================================================= */
 
 .service-grid {
   display: grid;
@@ -1581,9 +1661,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    ARTICLE
-========================= */
+========================================================= */
 
 .article-grid {
   display: grid;
@@ -1601,6 +1681,8 @@ a {
   border-radius: 10px;
 
   overflow: hidden;
+
+  background: #fff;
 }
 
 .article-image {
@@ -1659,9 +1741,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    CONTACT PAGE
-========================= */
+========================================================= */
 
 .contact-page {
   display: grid;
@@ -1722,9 +1804,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    CONTACT FORM
-========================= */
+========================================================= */
 
 .contact-form {
   display: flex;
@@ -1763,9 +1845,9 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    NOT FOUND
-========================= */
+========================================================= */
 
 .not-found {
   text-align: center;
@@ -1778,20 +1860,52 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    TABLET
-================================================== */
+========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
+
+  .container {
+    width: 92%;
+  }
+
 
   /* NAVBAR */
 
-  .nav-menu {
+  .nav-content {
     gap: 15px;
+  }
+
+  .nav-menu {
+    gap: 16px;
   }
 
   .nav-menu a {
     font-size: 9px;
+  }
+
+  .navbar .nav-content > .contact-button {
+    padding: 9px 12px !important;
+
+    font-size: 9px !important;
+  }
+
+
+  /* HERO */
+
+  .hero-text {
+    width: 58%;
+  }
+
+  .hero-image {
+    width: 50%;
+
+    right: -5%;
+  }
+
+  .hero-image img {
+    width: 100%;
   }
 
 
@@ -1807,13 +1921,22 @@ a {
 
   .about-container {
     grid-template-columns: 1fr 1fr;
+
+    column-gap: 30px;
+  }
+
+
+  /* STATISTICS */
+
+  .statistics {
+    grid-template-columns: repeat(2, 1fr);
   }
 
 
   /* ADVANTAGES */
 
   .advantages-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
 
     gap: 15px;
   }
@@ -1840,8 +1963,17 @@ a {
 
   /* PRODUCT */
 
-  .detail-product {
+  .product-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  /* DETAIL PRODUCT */
+
+  .product-detail-wrapper {
     grid-template-columns: 1fr;
+
+    gap: 25px;
   }
 
 
@@ -1857,18 +1989,21 @@ a {
   .article-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+
+  /* CONTACT */
+
+  .contact-page {
+    gap: 30px;
+  }
 }
 
 
-/* ==================================================
+/* =========================================================
    MOBILE
-================================================== */
+========================================================= */
 
 @media (max-width: 650px) {
-
-  /* =========================
-     BODY
-  ========================= */
 
   html,
   body {
@@ -1877,94 +2012,694 @@ a {
     overflow-x: hidden;
   }
 
+  .container {
+    width: calc(100% - 32px);
 
-  /* =========================
-     NAVBAR
-  ========================= */
+    max-width: none;
+  }
+
+
+  /* =======================================================
+     NAVBAR MOBILE
+  ======================================================= */
 
   .navbar {
+    width: 100%;
+
+    min-height: 68px;
+
     height: auto;
+
+    background: #fff;
+
+    position: relative;
+
+    z-index: 9999;
   }
 
   .nav-content {
-    height: auto;
+    width: calc(100% - 28px);
 
-    padding: 15px 0;
+    min-height: 68px;
+
+    margin: 0 auto;
+
+    padding: 10px 0;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+  }
+
+
+  /* LOGO */
+
+  .logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    flex: 1;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    font-size: 21px;
+
+    border-radius: 6px;
+  }
+
+  .logo-text {
+    min-width: 0;
+
+    gap: 2px;
+  }
+
+  .logo-text strong {
+    font-size: 11px;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+  }
+
+  .logo-text span {
+    font-size: 6.5px;
+
+    white-space: nowrap;
+  }
+
+
+  /* HAMBURGER */
+
+  .menu-toggle {
+    display: flex;
+
+    flex-shrink: 0;
+  }
+
+
+  /* HIDE CONTACT BUTTON */
+
+  .navbar .nav-content > .contact-button {
+    display: none !important;
+  }
+
+
+  /* MOBILE MENU */
+
+  .nav-menu {
+    position: absolute;
+
+    top: 68px;
+
+    left: 0;
+
+    width: 100%;
+
+    padding: 15px 20px 20px;
+
+    background: #fff;
+
+    border-top: 1px solid #f1f1f1;
+
+    border-bottom: 1px solid #eee;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+    display: flex;
 
     flex-direction: column;
 
-    gap: 15px;
+    align-items: stretch;
+
+    gap: 0;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(-10px);
+
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease;
+
+    z-index: 9998;
   }
 
-  .nav-menu {
-    flex-wrap: wrap;
+  .nav-menu.show {
+    opacity: 1;
 
-    justify-content: center;
+    visibility: visible;
 
-    gap: 15px;
+    transform: translateY(0);
   }
+
+
+  /* LINK MENU */
 
   .nav-menu a {
-    padding: 5px 0;
+    width: 100%;
+
+    padding: 13px 5px;
+
+    font-size: 11px;
+
+    color: #222;
+
+    border-bottom: 1px solid #f2f2f2;
+
+    white-space: normal;
+
+    text-align: left;
+  }
+
+  .nav-menu a:last-child {
+    border-bottom: none;
+  }
+
+  .nav-menu a:hover {
+    color: #d71920;
+  }
+
+  .nav-menu a.active {
+    color: #d71920;
+
+    font-weight: 700;
   }
 
   .nav-menu a.active::after {
-    bottom: -4px;
+    display: none;
   }
 
 
-  /* =========================
-     HERO
-  ========================= */
+  /* CONTACT BUTTON MENU */
+
+  .nav-menu::after {
+    content: "Hubungi Kami →";
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    min-height: 40px;
+
+    margin-top: 12px;
+
+    padding: 10px;
+
+    background: #d71920;
+
+    color: #fff;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    cursor: pointer;
+  }
+
+
+  /* =======================================================
+     HERO MOBILE
+  ======================================================= */
+
+  .hero {
+    min-height: auto;
+
+    background: linear-gradient(
+      180deg,
+      #fff 0%,
+      #fff 65%,
+      #fff8f8 100%
+    );
+  }
+
+  .hero-content {
+    min-height: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .hero-text {
+    width: 100%;
+
+    padding: 42px 0 15px;
+
+    text-align: center;
+  }
+
+  .small-title {
+    font-size: 9px;
+
+    margin-bottom: 10px;
+  }
 
   .hero h1 {
-    font-size: 27px;
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+  }
+
+  .hero-text > p {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 15px auto 0;
+
+    font-size: 11px;
+
+    line-height: 1.7;
   }
 
 
-  /* =========================
-     GRID
-  ========================= */
+  /* HERO BUTTON */
 
-  .category-grid,
-  .product-grid,
-  .service-grid,
-  .article-grid {
-    grid-template-columns: 1fr;
+  .hero-buttons {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+  }
+
+  .btn {
+    min-height: 40px;
+
+    padding: 10px 16px;
+
+    font-size: 10px;
   }
 
 
-  /* =========================
-     ABOUT
-  ========================= */
+  /* HERO FEATURES */
+
+  .hero-features {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+    align-items: stretch;
+  }
+
+  .hero-feature {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 6px;
+
+    text-align: center;
+  }
+
+  .feature-icon {
+    width: 30px;
+    height: 30px;
+
+    font-size: 15px;
+  }
+
+  .hero-feature strong {
+    font-size: 8px;
+  }
+
+  .hero-feature span {
+    max-width: 90px;
+
+    font-size: 7px;
+
+    line-height: 1.4;
+  }
+
+  .hero-divider {
+    display: none;
+  }
+
+
+  /* HERO IMAGE */
+
+  .hero-image {
+    position: relative;
+
+    width: 100%;
+
+    height: 240px;
+
+    right: auto;
+
+    top: auto;
+
+    margin-top: 5px;
+
+    overflow: hidden;
+  }
+
+  .hero-image img {
+    width: 95%;
+
+    height: auto;
+
+    max-height: 230px;
+
+    object-fit: contain;
+  }
+
+  .red-circle {
+    width: 120px;
+
+    height: 100%;
+
+    border-left-width: 20px;
+
+    left: -10px;
+
+    top: 50%;
+
+    transform: translateY(-50%) rotate(-12deg);
+  }
+
+  .dots {
+    width: 45px;
+    height: 45px;
+
+    right: 5px;
+    bottom: 5px;
+
+    background-size: 8px 8px;
+  }
+
+
+  /* =======================================================
+     SECTION MOBILE
+  ======================================================= */
+
+  .section {
+    padding: 42px 0;
+  }
+
+  .section-title {
+    margin-bottom: 22px;
+  }
+
+  .section-title h2 {
+    font-size: 15px;
+  }
+
+  .section-title::after {
+    width: 40px;
+
+    margin-top: 8px;
+  }
+
+
+  /* =======================================================
+     CATEGORY MOBILE
+  ======================================================= */
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+  }
+
+  .category-card {
+    min-height: 115px;
+
+    padding: 15px 10px;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 9px;
+  }
+
+  .category-icon {
+    width: 42px;
+    height: 42px;
+
+    font-size: 21px;
+  }
+
+  .category-card h3 {
+    font-size: 10px;
+
+    margin-bottom: 5px;
+  }
+
+  .category-card p {
+    font-size: 7.5px;
+
+    line-height: 1.5;
+  }
+
+
+  /* =======================================================
+     PRODUCT MOBILE
+  ======================================================= */
+
+  .products-section {
+    padding-top: 0;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+  }
+
+  .product-card {
+    border-radius: 7px;
+  }
+
+  .product-image {
+    height: 125px;
+
+    padding: 8px;
+  }
+
+  .product-image img {
+    width: 90%;
+
+    height: 105px;
+  }
+
+  .product-info {
+    padding: 10px 10px 13px;
+  }
+
+  .product-info h3 {
+    font-size: 10px;
+
+    margin-bottom: 5px;
+  }
+
+  .product-info p {
+    font-size: 7.5px;
+
+    line-height: 1.5;
+
+    min-height: 32px;
+
+    margin-bottom: 7px;
+  }
+
+  .detail-link {
+    font-size: 8px;
+  }
+
+
+  /* =======================================================
+     ABOUT MOBILE
+  ======================================================= */
+
+  .about-section {
+    padding: 50px 0;
+  }
 
   .about-container {
     grid-template-columns: 1fr;
+
+    gap: 25px;
   }
 
   .about-image {
-    height: 230px;
+    width: 100%;
+
+    height: 220px;
+
+    border-radius: 8px;
+  }
+
+  .about-content {
+    padding: 0;
+
+    text-align: left;
+  }
+
+  .about-content .small-title {
+    font-size: 9px;
+
+    margin-bottom: 8px;
+  }
+
+  .about-content h2 {
+    font-size: 24px;
+
+    line-height: 1.2;
+
+    margin-bottom: 13px;
+  }
+
+  .about-content p {
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    margin-bottom: 10px;
   }
 
 
-  /* =========================
-     ADVANTAGES
-  ========================= */
+  /* =======================================================
+     STATISTICS MOBILE
+  ======================================================= */
+
+  .statistics {
+    grid-column: auto;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 5px;
+  }
+
+  .stat-item {
+    min-height: 70px;
+
+    padding: 11px;
+
+    gap: 8px;
+
+    border-radius: 8px;
+  }
+
+  .stat-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 15px;
+  }
+
+  .stat-item strong {
+    font-size: 17px;
+
+    margin-bottom: 2px;
+  }
+
+  .stat-item span {
+    font-size: 7.5px;
+
+    line-height: 1.3;
+  }
+
+
+  /* =======================================================
+     ADVANTAGES MOBILE
+  ======================================================= */
 
   .advantages-grid {
     grid-template-columns: 1fr;
+
+    gap: 0;
   }
 
   .advantage {
-    border-bottom: 1px solid #eee;
+    min-height: 65px;
 
-    padding: 15px 0;
+    padding: 13px 0;
+
+    gap: 11px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #eee;
+  }
+
+  .advantage:last-child {
+    border-bottom: none;
+  }
+
+  .advantage-icon {
+    width: 38px;
+    height: 38px;
+
+    font-size: 18px;
+  }
+
+  .advantage h3 {
+    font-size: 9px;
+
+    margin-bottom: 3px;
+  }
+
+  .advantage p {
+    font-size: 7.5px;
+
+    line-height: 1.4;
   }
 
 
-  /* =========================
-     FOOTER
-  ========================= */
+  /* =======================================================
+     FOOTER MOBILE
+  ======================================================= */
 
   .footer {
     width: 100%;
@@ -1972,8 +2707,6 @@ a {
     position: relative;
 
     z-index: 9999;
-
-    pointer-events: auto;
   }
 
   .footer-main {
@@ -1981,9 +2714,9 @@ a {
 
     grid-template-columns: 1fr;
 
-    gap: 25px;
+    gap: 22px;
 
-    padding: 35px 20px;
+    padding: 32px 18px 25px;
   }
 
   .footer-column {
@@ -1992,8 +2725,6 @@ a {
     position: relative;
 
     z-index: 10000;
-
-    pointer-events: auto;
   }
 
   .footer-brand {
@@ -2006,95 +2737,625 @@ a {
     padding-bottom: 20px;
   }
 
+  .footer-brand h2 {
+    font-size: 14px;
 
-  /* =========================
-     CONTACT LINK MOBILE
-  ========================= */
+    margin-bottom: 10px;
+  }
 
-  .footer-contact {
-    position: relative;
+  .footer-brand p {
+    font-size: 9px;
 
-    z-index: 10001;
+    line-height: 1.7;
 
-    pointer-events: auto;
+    margin-bottom: 0;
+  }
+
+  .footer-column h3 {
+    font-size: 10px;
+
+    margin-bottom: 10px;
+  }
+
+  .footer-column a {
+    font-size: 9px;
+
+    margin-bottom: 8px;
+  }
+
+
+  /* FOOTER CONTACT */
+
+  .footer-contact .footer-address {
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    margin-bottom: 8px;
   }
 
   .footer-contact .footer-contact-link {
-    display: flex;
-
-    align-items: center;
-
     width: 100%;
 
-    min-height: 44px;
+    min-height: 40px;
 
-    padding: 10px 0;
+    padding: 8px 0;
 
     margin: 0;
 
-    color: #fff !important;
+    font-size: 9px;
 
-    position: relative;
+    display: flex;
 
-    z-index: 10002;
+    align-items: center;
+  }
 
-    pointer-events: auto !important;
+  .footer-contact .footer-hours {
+    font-size: 9px;
 
-    touch-action: manipulation;
+    line-height: 1.6;
 
-    cursor: pointer;
+    margin: 5px 0;
   }
 
 
-  /* =========================
-     CONTACT PAGE
-  ========================= */
+  /* NEWSLETTER */
 
-  .contact-page {
-    grid-template-columns: 1fr;
+  .footer-newsletter p {
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    margin-bottom: 10px;
+  }
+
+  .footer-newsletter input {
+    padding: 10px;
+
+    font-size: 9px;
+  }
+
+  .footer-newsletter button {
+    width: 38px;
+
+    font-size: 13px;
   }
 
 
-  /* =========================
-     PAGE ABOUT
-  ========================= */
+  /* SOCIAL */
+
+  .footer-social {
+    gap: 7px;
+
+    margin-top: 12px;
+  }
+
+  .footer-social a {
+    width: 27px;
+    height: 27px;
+
+    font-size: 11px;
+  }
+
+
+  /* FOOTER BOTTOM */
+
+  .footer-bottom {
+    padding: 9px 15px;
+
+    font-size: 8px;
+
+    line-height: 1.5;
+  }
+
+
+  /* =======================================================
+     OTHER PAGE MOBILE
+  ======================================================= */
+
+  .page-section {
+    min-height: auto;
+
+    padding: 40px 0;
+  }
+
+  .page-intro {
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+  }
 
   .page-about {
     grid-template-columns: 1fr;
+
+    gap: 25px;
+
+    margin-top: 25px;
   }
 
   .page-about img {
-    height: 250px;
+    height: 230px;
+
+    border-radius: 8px;
+  }
+
+  .page-about h1 {
+    font-size: 25px;
+
+    margin-bottom: 13px;
+  }
+
+  .page-about p {
+    font-size: 10px;
+
+    line-height: 1.7;
   }
 
 
-  /* =========================
-     ABOUT STATS
-  ========================= */
+  /* =======================================================
+     ABOUT STATS MOBILE
+  ======================================================= */
 
   .about-stats {
     grid-template-columns: 1fr 1fr;
+
+    margin-top: 30px;
+
+    border-radius: 8px;
+  }
+
+  .about-stats div {
+    padding: 18px 10px;
+
+    border-right: 1px solid #eee;
+
+    border-bottom: 1px solid #eee;
+  }
+
+  .about-stats div:nth-child(2n) {
+    border-right: none;
+  }
+
+  .about-stats div:nth-child(3),
+  .about-stats div:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .about-stats strong {
+    font-size: 22px;
+  }
+
+  .about-stats span {
+    font-size: 8px;
   }
 
 
-  /* =========================
-     PRODUCT PAGE
-  ========================= */
+  /* =======================================================
+     PRODUCT PAGE MOBILE
+  ======================================================= */
 
   .product-page-grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 25px;
+  }
+
+  .product-category {
+    font-size: 8px;
+
+    margin-bottom: 5px;
+  }
+
+  .back-link {
+    font-size: 10px;
+
+    margin-bottom: 18px;
+  }
+
+
+  /* =======================================================
+     DETAIL PRODUCT MOBILE
+  ======================================================= */
+
+  .product-detail-section {
+    min-height: auto;
+
+    padding: 40px 0;
+  }
+
+  .product-detail-back {
+    margin-bottom: 18px;
+  }
+
+  .product-detail-back a {
+    font-size: 10px;
+  }
+
+  .product-detail-wrapper {
     grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+  .product-detail-image {
+    min-height: 280px;
+
+    padding: 20px;
+
+    border-radius: 8px;
+  }
+
+  .product-detail-image img {
+    width: 85%;
+
+    height: 240px;
+  }
+
+  .product-detail-info {
+    padding: 22px 18px;
+
+    border-radius: 8px;
+  }
+
+  .product-detail-category {
+    font-size: 8px;
+
+    padding: 6px 10px;
+
+    margin-bottom: 12px;
+  }
+
+  .product-detail-info h1 {
+    font-size: 24px;
+
+    margin-bottom: 13px;
+  }
+
+  .product-detail-price {
+    font-size: 18px;
+
+    margin-bottom: 18px;
+  }
+
+  .product-detail-description {
+    margin-bottom: 18px;
+  }
+
+  .product-detail-description h3 {
+    font-size: 13px;
+
+    margin-bottom: 8px;
+  }
+
+  .product-detail-description p {
+    font-size: 10px;
+
+    line-height: 1.7;
+  }
+
+  .product-detail-actions .btn-primary {
+    width: 100%;
+
+    min-height: 40px;
+
+    font-size: 10px;
   }
 
 
-  /* =========================
-     DETAIL PRODUCT
-  ========================= */
+  /* =======================================================
+     SERVICE MOBILE
+  ======================================================= */
 
-  .detail-image {
-    height: 300px;
+  .service-grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 25px;
   }
 
-  .detail-content h1 {
-    font-size: 28px;
+  .service-card {
+    padding: 20px 10px;
+
+    border-radius: 8px;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+
+    font-size: 22px;
+  }
+
+  .service-card h3 {
+    font-size: 10px;
+
+    margin: 12px 0 7px;
+  }
+
+  .service-card p {
+    font-size: 8px;
+
+    line-height: 1.5;
+  }
+
+
+  /* =======================================================
+     ARTICLE MOBILE
+  ======================================================= */
+
+  .article-grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+
+    margin-top: 25px;
+  }
+
+  .article-image {
+    height: 160px;
+
+    font-size: 45px;
+  }
+
+  .article-content {
+    padding: 15px;
+  }
+
+  .article-content > span {
+    font-size: 8px;
+  }
+
+  .article-content h3 {
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    margin: 8px 0;
+  }
+
+  .article-content p {
+    font-size: 9px;
+  }
+
+  .article-content button {
+    font-size: 9px;
+
+    margin-top: 12px;
+  }
+
+
+  /* =======================================================
+     CONTACT MOBILE
+  ======================================================= */
+
+  .contact-page {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+
+    margin-top: 25px;
+  }
+
+  .contact-info {
+    padding: 22px 18px;
+
+    border-radius: 8px;
+  }
+
+  .contact-info h2 {
+    font-size: 22px;
+
+    margin-bottom: 10px;
+  }
+
+  .contact-info > p {
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+  }
+
+  .contact-item {
+    gap: 4px;
+
+    margin-bottom: 15px;
+  }
+
+  .contact-item strong {
+    font-size: 10px;
+  }
+
+  .contact-item span {
+    font-size: 9px;
+
+    line-height: 1.5;
+  }
+
+  .contact-form {
+    gap: 10px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 11px;
+
+    font-size: 10px;
+  }
+
+
+  /* =======================================================
+     NOT FOUND
+  ======================================================= */
+
+  .not-found {
+    padding: 70px 20px;
+  }
+
+  .not-found h1 {
+    font-size: 25px;
+
+    margin-bottom: 18px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONE
+   320px - 380px
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .container {
+    width: calc(100% - 24px);
+  }
+
+
+  /* NAVBAR */
+
+  .nav-content {
+    width: calc(100% - 24px);
+  }
+
+  .logo-text strong {
+    font-size: 12px;
+  }
+
+  .nav-menu {
+    gap: 18px;
+  }
+
+  .nav-menu a {
+    font-size: 9px;
+  }
+
+
+  /* HERO */
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .hero-text > p {
+    font-size: 10px;
+  }
+
+  .hero-features {
+    gap: 4px;
+  }
+
+  .hero-feature span {
+    font-size: 6.5px;
+  }
+
+
+  /* CATEGORY */
+
+  .category-card {
+    min-height: 108px;
+
+    padding: 12px 7px;
+  }
+
+  .category-icon {
+    width: 38px;
+    height: 38px;
+
+    font-size: 19px;
+  }
+
+  .category-card h3 {
+    font-size: 9px;
+  }
+
+  .category-card p {
+    font-size: 7px;
+  }
+
+
+  /* PRODUCT */
+
+  .product-image {
+    height: 110px;
+  }
+
+  .product-image img {
+    height: 95px;
+  }
+
+  .product-info {
+    padding: 8px;
+  }
+
+  .product-info h3 {
+    font-size: 9px;
+  }
+
+  .product-info p {
+    font-size: 7px;
+  }
+
+
+  /* DETAIL PRODUCT */
+
+  .product-detail-image {
+    min-height: 250px;
+
+    padding: 15px;
+  }
+
+  .product-detail-image img {
+    height: 210px;
+  }
+
+  .product-detail-info {
+    padding: 20px 15px;
+  }
+
+  .product-detail-info h1 {
+    font-size: 21px;
+  }
+
+  .product-detail-price {
+    font-size: 17px;
+  }
+
+
+  /* STATISTICS */
+
+  .stat-item {
+    padding: 9px;
+  }
+
+  .stat-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .stat-item strong {
+    font-size: 15px;
+  }
+
+  .stat-item span {
+    font-size: 7px;
+  }
+
+
+  /* BUTTON */
+
+  .hero-buttons {
+    gap: 7px;
+  }
+
+  .btn {
+    padding: 9px 12px;
+
+    font-size: 9px;
   }
 }

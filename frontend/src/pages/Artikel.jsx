@@ -1,24 +1,39 @@
+import { useEffect, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 
-const articles = [
-  {
-    title: "Cara Memilih Alat Kesehatan yang Berkualitas",
-    date: "12 Juni 2024",
-    category: "Tips Kesehatan",
-  },
-  {
-    title: "Pentingnya Perawatan Alat Medis",
-    date: "05 Juni 2024",
-    category: "Perawatan",
-  },
-  {
-    title: "Teknologi Terbaru dalam Dunia Medis",
-    date: "28 Mei 2024",
-    category: "Teknologi",
-  },
-];
+const API_URL = "http://127.0.0.1:8000/api/articles";
+const IMAGE_URL = "http://127.0.0.1:8000/storage/";
 
 function Artikel() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data artikel");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data artikel:", data);
+
+        setArticles(
+          Array.isArray(data)
+            ? data
+            : data.data || []
+        );
+      })
+      .catch((error) => {
+        console.error("Error mengambil artikel:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <section className="page-section">
 
@@ -26,44 +41,61 @@ function Artikel() {
 
         <SectionTitle title="ARTIKEL" />
 
-        <div className="article-grid">
+        {loading ? (
+          <p>Memuat artikel...</p>
+        ) : articles.length === 0 ? (
+          <p>Belum ada artikel.</p>
+        ) : (
 
-          {articles.map((article) => (
+          <div className="article-grid">
 
-            <article
-              className="article-card"
-              key={article.title}
-            >
+            {articles.map((article) => (
 
-              <div className="article-image">
-                📰
-              </div>
+              <article
+                className="article-card"
+                key={article.id}
+              >
 
-              <div className="article-content">
+                <div className="article-image">
 
-                <span>
-                  {article.category}
-                </span>
+                  {article.image ? (
+                    <img
+                      src={`${IMAGE_URL}${article.image}`}
+                      alt={article.title}
+                    />
+                  ) : (
+                    "📰"
+                  )}
 
-                <h3>
-                  {article.title}
-                </h3>
+                </div>
 
-                <p>
-                  {article.date}
-                </p>
+                <div className="article-content">
 
-                <button>
-                  Baca Selengkapnya →
-                </button>
+                  <span>
+                    {article.category}
+                  </span>
 
-              </div>
+                  <h3>
+                    {article.title}
+                  </h3>
 
-            </article>
+                  <p>
+                    {article.summary}
+                  </p>
 
-          ))}
+                  <button>
+                    Baca Selengkapnya →
+                  </button>
 
-        </div>
+                </div>
+
+              </article>
+
+            ))}
+
+          </div>
+
+        )}
 
       </div>
 
@@ -72,3 +104,4 @@ function Artikel() {
 }
 
 export default Artikel;
+

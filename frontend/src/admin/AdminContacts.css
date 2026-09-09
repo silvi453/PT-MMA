@@ -1,0 +1,870 @@
+/* =========================================================
+   ADMIN CONTACTS PAGE
+========================================================= */
+
+.admin-contacts-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 32px;
+  background: #f7f8fa;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.admin-contacts-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.admin-contacts-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #c62828;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.admin-contacts-header h1 {
+  margin: 0;
+  color: #202124;
+  font-size: 30px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.admin-contacts-header p {
+  margin: 8px 0 0;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+.refresh-contact-btn {
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 11px 18px;
+  background: #ffffff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.refresh-contact-btn:hover {
+  border-color: #c62828;
+  color: #c62828;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.contact-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.contact-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 92px;
+  padding: 20px;
+  border: 1px solid #eeeeee;
+  border-radius: 14px;
+  background: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.035);
+}
+
+.contact-summary-card .summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #fff1f1;
+  color: #c62828;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.contact-summary-card span {
+  display: block;
+  margin-bottom: 5px;
+  color: #777;
+  font-size: 13px;
+}
+
+.contact-summary-card strong {
+  display: block;
+  color: #222;
+  font-size: 25px;
+  font-weight: 750;
+}
+
+.contact-summary-card.unread {
+  border-color: #f2d0d0;
+}
+
+.contact-summary-card.unread .summary-icon {
+  background: #c62828;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.contacts-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   MESSAGE LIST
+========================================================= */
+
+.contacts-list {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.035);
+}
+
+.contacts-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 20px 22px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.contacts-list-header h2 {
+  margin: 0;
+  color: #222;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.contacts-list-header p {
+  margin: 5px 0 0;
+  color: #888;
+  font-size: 12px;
+}
+
+.contacts-list-header > span {
+  flex-shrink: 0;
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   MESSAGE ITEMS
+========================================================= */
+
+.contact-items {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.contact-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact-items::-webkit-scrollbar-track {
+  background: #f7f7f7;
+}
+
+.contact-items::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #d4d4d4;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.contact-item:hover {
+  background: #fff8f8;
+}
+
+.contact-item.unread {
+  background: #fff9f9;
+}
+
+.contact-item.unread:hover {
+  background: #fff3f3;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.contact-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #c62828;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MESSAGE CONTENT
+========================================================= */
+
+.contact-item-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.contact-item-top strong {
+  overflow: hidden;
+  color: #252525;
+  font-size: 14px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.unread-badge {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #c62828;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.contact-email {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: #999;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-item-content p {
+  margin: 7px 0 0;
+  overflow: hidden;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-arrow {
+  flex-shrink: 0;
+  color: #bbb;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+
+.contact-item:hover .contact-arrow {
+  color: #c62828;
+  transform: translateX(3px);
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+========================================================= */
+
+.contact-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+  padding: 30px;
+  text-align: center;
+}
+
+.empty-icon,
+.detail-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #fff1f1;
+  color: #c62828;
+  font-size: 28px;
+}
+
+.contact-empty h3 {
+  margin: 0 0 6px;
+  color: #333;
+  font-size: 16px;
+}
+
+.contact-empty p {
+  margin: 0;
+  color: #999;
+  font-size: 13px;
+}
+
+.contact-loading {
+  text-align: center;
+}
+
+.contact-loading p {
+  margin-top: 12px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  border: 3px solid #eeeeee;
+  border-top-color: #c62828;
+  border-radius: 50%;
+  animation: contactSpin 0.8s linear infinite;
+}
+
+@keyframes contactSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   DETAIL PANEL
+========================================================= */
+
+.contact-detail {
+  min-width: 0;
+  min-height: 500px;
+  overflow: hidden;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.035);
+}
+
+.contact-detail-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  padding: 40px;
+  text-align: center;
+}
+
+.contact-detail-empty h3 {
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 17px;
+}
+
+.contact-detail-empty p {
+  max-width: 300px;
+  margin: 0;
+  color: #999;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   DETAIL HEADER
+========================================================= */
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.detail-header > div {
+  min-width: 0;
+}
+
+.detail-header span {
+  display: block;
+  margin-bottom: 6px;
+  color: #c62828;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.detail-header h2 {
+  margin: 0;
+  overflow: hidden;
+  color: #222;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+}
+
+.close-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #777;
+  font-size: 21px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-detail:hover {
+  background: #fff0f0;
+  color: #c62828;
+}
+
+
+/* =========================================================
+   SENDER
+========================================================= */
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 22px;
+  padding: 16px;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.sender-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #c62828;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sender-info > div:last-child {
+  min-width: 0;
+}
+
+.sender-info strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #333;
+  font-size: 14px;
+}
+
+.sender-info span {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: #777;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MESSAGE BODY
+========================================================= */
+
+.message-body {
+  margin: 0 22px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.message-body > span {
+  display: block;
+  margin-bottom: 12px;
+  color: #999;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.message-body p {
+  margin: 0;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.message-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 20px 22px 0;
+  padding-top: 18px;
+  border-top: 1px solid #eeeeee;
+}
+
+.message-date span {
+  color: #999;
+  font-size: 11px;
+}
+
+.message-date strong {
+  color: #666;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px;
+}
+
+.read-btn,
+.delete-btn {
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.read-btn {
+  border: 1px solid #c62828;
+  background: #c62828;
+  color: #ffffff;
+}
+
+.read-btn:hover {
+  background: #a91f1f;
+  border-color: #a91f1f;
+}
+
+.delete-btn {
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+  color: #c62828;
+}
+
+.delete-btn:hover {
+  border-color: #c62828;
+  background: #fff4f4;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .admin-contacts-page {
+    padding: 25px;
+  }
+
+  .contacts-content {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-detail {
+    min-height: auto;
+  }
+
+  .contact-detail-empty {
+    min-height: 300px;
+  }
+
+  .contact-items {
+    max-height: 450px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .admin-contacts-page {
+    padding: 18px 15px;
+  }
+
+  .admin-contacts-header {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .admin-contacts-header h1 {
+    font-size: 25px;
+  }
+
+  .admin-contacts-header p {
+    font-size: 13px;
+  }
+
+  .refresh-contact-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+
+  /* SUMMARY */
+
+  .contact-summary {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .contact-summary-card {
+    min-height: 75px;
+    padding: 15px;
+  }
+
+  .contact-summary-card .summary-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .contact-summary-card strong {
+    font-size: 22px;
+  }
+
+
+  /* CONTENT */
+
+  .contacts-content {
+    gap: 15px;
+  }
+
+  .contacts-list,
+  .contact-detail {
+    border-radius: 12px;
+  }
+
+
+  /* LIST HEADER */
+
+  .contacts-list-header {
+    padding: 16px;
+  }
+
+  .contacts-list-header h2 {
+    font-size: 16px;
+  }
+
+
+  /* ITEMS */
+
+  .contact-item {
+    gap: 11px;
+    padding: 15px;
+  }
+
+  .contact-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .contact-item-top strong {
+    font-size: 13px;
+  }
+
+  .contact-item-content p {
+    font-size: 11px;
+  }
+
+  .contact-arrow {
+    display: none;
+  }
+
+
+  /* DETAIL */
+
+  .detail-header {
+    padding: 17px;
+  }
+
+  .detail-header h2 {
+    font-size: 16px;
+  }
+
+  .sender-info {
+    margin: 17px;
+    padding: 13px;
+  }
+
+  .sender-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .message-body {
+    margin: 0 17px;
+    padding: 16px;
+  }
+
+  .message-body p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .message-date {
+    margin: 17px;
+    margin-bottom: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .message-date strong {
+    text-align: left;
+  }
+
+  .detail-actions {
+    margin: 17px;
+    flex-direction: column;
+  }
+
+  .read-btn,
+  .delete-btn {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .admin-contacts-page {
+    padding: 15px 12px;
+  }
+
+  .admin-contacts-header h1 {
+    font-size: 22px;
+  }
+
+  .contact-item {
+    padding: 13px;
+  }
+
+  .contact-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .unread-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .contact-email {
+    font-size: 10px;
+  }
+
+  .contact-item-content p {
+    margin-top: 5px;
+    font-size: 10px;
+  }
+
+}

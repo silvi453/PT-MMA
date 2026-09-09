@@ -1,13 +1,27 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <header className="navbar">
       <div className="container nav-content">
 
-        {/* LOGO */}
-        <Link to="/" className="logo">
-          <div className="logo-icon">✚</div>
+        {/* =========================
+            LOGO
+        ========================= */}
+        <Link to="/" className="logo" onClick={closeMenu}>
+          <div className="logo-icon">
+            <img
+              src="/images/logo.png"
+              alt="Logo PT Mitra Meditama Abadi"
+            />
+          </div>
 
           <div className="logo-text">
             <strong>PT MITRA MEDITAMA ABADI</strong>
@@ -15,8 +29,26 @@ function Navbar() {
           </div>
         </Link>
 
-        {/* MENU */}
-        <nav className="nav-menu">
+
+        {/* =========================
+            HAMBURGER MOBILE
+        ========================= */}
+        <button
+          className={`menu-toggle ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Buka menu"
+          aria-expanded={menuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+
+        {/* =========================
+            MENU
+        ========================= */}
+        <nav className={`nav-menu ${menuOpen ? "show" : ""}`}>
 
           <NavLink
             to="/"
@@ -24,6 +56,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Beranda
           </NavLink>
@@ -33,6 +66,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Tentang Kami
           </NavLink>
@@ -42,6 +76,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Produk
           </NavLink>
@@ -51,6 +86,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Layanan
           </NavLink>
@@ -60,6 +96,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Artikel
           </NavLink>
@@ -69,19 +106,29 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? "active" : ""
             }
+            onClick={closeMenu}
           >
             Kontak
           </NavLink>
 
         </nav>
 
-        {/* BUTTON KONTAK */}
-        <Link to="/kontak" className="contact-button">
+
+        {/* =========================
+            BUTTON KONTAK
+        ========================= */}
+        <Link
+          to="/kontak"
+          className="contact-button"
+          onClick={closeMenu}
+        >
           Hubungi Kami →
         </Link>
+
       </div>
     </header>
   );
 }
 
 export default Navbar;
+

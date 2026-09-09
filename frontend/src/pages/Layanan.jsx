@@ -1,29 +1,39 @@
+import { useEffect, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 
-const services = [
-  {
-    icon: "🚚",
-    title: "Pengiriman Produk",
-    desc: "Kami menyediakan layanan pengiriman produk ke berbagai wilayah di Indonesia.",
-  },
-  {
-    icon: "🔧",
-    title: "Instalasi Produk",
-    desc: "Tim teknis membantu proses instalasi dan memastikan alat siap digunakan.",
-  },
-  {
-    icon: "🛠️",
-    title: "Maintenance",
-    desc: "Layanan perawatan dan pemeliharaan alat kesehatan.",
-  },
-  {
-    icon: "🎧",
-    title: "Customer Support",
-    desc: "Tim profesional kami siap membantu kebutuhan dan pertanyaan pelanggan.",
-  },
-];
+const API_URL = "http://127.0.0.1:8000/api/services";
 
 function Layanan() {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data layanan");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data layanan:", data);
+
+        // Menyesuaikan kemungkinan response Laravel
+        setServices(
+          Array.isArray(data)
+            ? data
+            : data.data || []
+        );
+      })
+      .catch((error) => {
+        console.error("Error mengambil layanan:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <section className="page-section">
 
@@ -38,32 +48,40 @@ function Layanan() {
           kesehatan Anda terpenuhi.
         </p>
 
-        <div className="service-grid">
+        {loading ? (
+          <p>Memuat layanan...</p>
+        ) : services.length === 0 ? (
+          <p>Belum ada layanan.</p>
+        ) : (
 
-          {services.map((service) => (
+          <div className="service-grid">
 
-            <div
-              className="service-card"
-              key={service.title}
-            >
+            {services.map((service) => (
 
-              <div className="service-icon">
-                {service.icon}
+              <div
+                className="service-card"
+                key={service.id}
+              >
+
+                <div className="service-icon">
+                  {service.icon}
+                </div>
+
+                <h3>
+                  {service.name}
+                </h3>
+
+                <p>
+                  {service.description}
+                </p>
+
               </div>
 
-              <h3>
-                {service.title}
-              </h3>
+            ))}
 
-              <p>
-                {service.desc}
-              </p>
+          </div>
 
-            </div>
-
-          ))}
-
-        </div>
+        )}
 
       </div>
 

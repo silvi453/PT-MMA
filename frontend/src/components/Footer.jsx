@@ -1,4 +1,3 @@
-jsx
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -10,18 +9,35 @@ function Footer() {
         {/* KOLOM 1: BRAND / PERUSAHAAN */}
         {/* ============================= */}
         <div className="footer-column footer-brand">
+
           <div
             className="logo"
             style={{ marginBottom: "15px" }}
           >
+
+            {/* LOGO PERUSAHAAN */}
             <div
               className="logo-icon"
               style={{
                 background: "#fff",
-                color: "#d71920",
+                width: "50px",
+                height: "50px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "8px",
+                overflow: "hidden",
               }}
             >
-              ✚
+              <img
+                src="/images/logo.png"
+                alt="Logo PT Mitra Meditama Abadi"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
+              />
             </div>
 
             <div className="logo-text">
@@ -34,6 +50,7 @@ function Footer() {
                 PT MITRA MEDITAMA ABADI
               </strong>
             </div>
+
           </div>
 
           <p>
@@ -41,6 +58,7 @@ function Footer() {
             di seluruh Indonesia.
           </p>
         </div>
+
 
         {/* ============================= */}
         {/* KOLOM 2: MENU */}
@@ -56,6 +74,7 @@ function Footer() {
           <Link to="/kontak">Kontak</Link>
         </div>
 
+
         {/* ============================= */}
         {/* KOLOM 3: HUBUNGI KAMI */}
         {/* ============================= */}
@@ -69,24 +88,20 @@ function Footer() {
             Kec. Kedungkandang, Kota Malang, Jawa Timur
           </p>
 
-          {/* ============================= */}
           {/* NOMOR TELEPON */}
-          {/* ============================= */}
           <a
             className="footer-contact-link"
-            href="tel:+6281234567890"
+            href="tel:(0341) 727299"
           >
-            📞 0812-3456-7890
+            📞 (0341) 727299
           </a>
 
-          {/* ============================= */}
           {/* EMAIL */}
-          {/* ============================= */}
           <a
             className="footer-contact-link"
-            href="mailto:admin@mitrameditamaabadi.com"
+            href="mailto:adm.mitrameditamaabadi@gmail.com"
           >
-            📧 admin@mitrameditamaabadi.com
+            📧 adm.mitrameditamaabadi@gmail.com
           </a>
 
           {/* JAM OPERASIONAL */}
@@ -99,6 +114,7 @@ function Footer() {
           </p>
 
         </div>
+
 
         {/* ============================= */}
         {/* KOLOM 4: NEWSLETTER */}
@@ -127,11 +143,12 @@ function Footer() {
 
       </div>
 
+
       {/* ============================= */}
       {/* COPYRIGHT */}
       {/* ============================= */}
       <div className="footer-bottom">
-        © 2026 PT Mitra Meditama Abadi. Silvi
+        © 2026 PT Mitra Meditama Abadi. Andy Park
       </div>
 
     </footer>
@@ -139,3 +156,4 @@ function Footer() {
 }
 
 export default Footer;
+

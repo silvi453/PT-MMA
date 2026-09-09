@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminSidebar from "../components/AdminSidebar";
 import "./Admin.css";
 
 const API_URL = "http://127.0.0.1:8000";
 
 function AdminDashboard() {
   const navigate = useNavigate();
-
-  // ==============================
-  // STATE STATISTIK
-  // ==============================
 
   const [statistics, setStatistics] = useState({
     products: 0,
@@ -20,32 +17,41 @@ function AdminDashboard() {
 
   const [loadingStats, setLoadingStats] = useState(true);
 
-  // ==============================
-  // CEK LOGIN + AMBIL STATISTIK
-  // ==============================
+  /*
+  |--------------------------------------------------------------------------
+  | CEK LOGIN + AMBIL STATISTIK
+  |--------------------------------------------------------------------------
+  */
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate("/admin", { replace: true });
+      navigate("/admin", {
+        replace: true,
+      });
+
       return;
     }
 
     fetchStatistics(token);
   }, [navigate]);
 
-  // ==============================
-  // AMBIL DATA STATISTIK
-  // ==============================
+
+  /*
+  |--------------------------------------------------------------------------
+  | FETCH STATISTICS
+  |--------------------------------------------------------------------------
+  */
 
   const fetchStatistics = async (token) => {
     setLoadingStats(true);
 
     try {
-      // ==============================
+
+      // ==================================================
       // PRODUK
-      // ==============================
+      // ==================================================
 
       let productsCount = 0;
 
@@ -71,6 +77,7 @@ function AdminDashboard() {
 
           productsCount = products.length;
         }
+
       } catch (error) {
         console.error(
           "Gagal mengambil jumlah produk:",
@@ -78,9 +85,10 @@ function AdminDashboard() {
         );
       }
 
-      // ==============================
+
+      // ==================================================
       // ARTIKEL
-      // ==============================
+      // ==================================================
 
       let articlesCount = 0;
 
@@ -106,6 +114,7 @@ function AdminDashboard() {
 
           articlesCount = articles.length;
         }
+
       } catch (error) {
         console.error(
           "Gagal mengambil jumlah artikel:",
@@ -113,9 +122,10 @@ function AdminDashboard() {
         );
       }
 
-      // ==============================
+
+      // ==================================================
       // LAYANAN
-      // ==============================
+      // ==================================================
 
       let servicesCount = 0;
 
@@ -141,6 +151,7 @@ function AdminDashboard() {
 
           servicesCount = services.length;
         }
+
       } catch (error) {
         console.error(
           "Gagal mengambil jumlah layanan:",
@@ -148,9 +159,10 @@ function AdminDashboard() {
         );
       }
 
-      // ==============================
+
+      // ==================================================
       // PENGGUNA
-      // ==============================
+      // ==================================================
 
       let usersCount = 0;
 
@@ -176,6 +188,7 @@ function AdminDashboard() {
 
           usersCount = users.length;
         }
+
       } catch (error) {
         console.error(
           "Gagal mengambil jumlah pengguna:",
@@ -183,9 +196,10 @@ function AdminDashboard() {
         );
       }
 
-      // ==============================
-      // UPDATE STATISTIK
-      // ==============================
+
+      // ==================================================
+      // SET STATISTICS
+      // ==================================================
 
       setStatistics({
         products: productsCount,
@@ -195,128 +209,73 @@ function AdminDashboard() {
       });
 
     } catch (error) {
+
       console.error(
         "Gagal mengambil statistik dashboard:",
         error
       );
+
     } finally {
+
       setLoadingStats(false);
+
     }
   };
 
-  // ==============================
-  // LOGOUT
-  // ==============================
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    navigate("/admin", { replace: true });
-  };
-
-  // ==============================
-  // DATA USER
-  // ==============================
+  /*
+  |--------------------------------------------------------------------------
+  | USER LOGIN
+  |--------------------------------------------------------------------------
+  */
 
   const user = JSON.parse(
     localStorage.getItem("user") || "null"
   );
 
-  // ==============================
-  // RENDER
-  // ==============================
+
+  /*
+  |--------------------------------------------------------------------------
+  | LOGOUT
+  |--------------------------------------------------------------------------
+  */
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/admin", {
+      replace: true,
+    });
+  };
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | RETURN
+  |--------------------------------------------------------------------------
+  */
 
   return (
     <div className="admin-dashboard">
 
-      {/* ==============================
+      {/* ==================================================
           SIDEBAR
-      ============================== */}
+      ================================================== */}
 
-      <aside className="admin-sidebar">
-
-        <div className="admin-sidebar-logo">
-
-          <div className="admin-logo-small">
-            ✚
-          </div>
-
-          <div>
-            <strong>PT MMA</strong>
-            <span>Admin Panel</span>
-          </div>
-
-        </div>
+      <AdminSidebar />
 
 
-        <nav className="admin-menu">
-
-          <button
-            className="admin-menu-active"
-            onClick={() =>
-              navigate("/admin/dashboard")
-            }
-          >
-            🏠 Dashboard
-          </button>
-
-
-          <button
-            onClick={() =>
-              navigate("/admin/products")
-            }
-          >
-            📦 Produk
-          </button>
-
-
-          <button
-            onClick={() =>
-              navigate("/admin/articles")
-            }
-          >
-            📰 Artikel
-          </button>
-
-
-          <button
-            onClick={() =>
-              navigate("/admin/services")
-            }
-          >
-            🛠️ Layanan
-          </button>
-
-
-          <button
-            onClick={() =>
-              navigate("/admin/users")
-            }
-          >
-            👥 Pengguna
-          </button>
-
-        </nav>
-
-
-        <button
-          className="admin-logout"
-          onClick={handleLogout}
-        >
-          ↪ Logout
-        </button>
-
-      </aside>
-
-
-      {/* ==============================
-          MAIN
-      ============================== */}
+      {/* ==================================================
+          MAIN CONTENT
+      ================================================== */}
 
       <main className="admin-main">
 
-        {/* TOPBAR */}
+        {/* ==================================================
+            TOPBAR
+        ================================================== */}
 
         <div className="admin-topbar">
 
@@ -333,20 +292,27 @@ function AdminDashboard() {
           </div>
 
 
-          <div className="admin-profile">
+          {/* PROFILE SAJA */}
+          
+          <button
+            className="admin-profile"
+            onClick={() =>
+              navigate("/admin/profile")
+            }
+          >
             👤 {user?.name || "Admin"}
-          </div>
+          </button>
 
         </div>
 
 
-        {/* ==============================
-            STATISTIK
-        ============================== */}
+        {/* ==================================================
+            STATISTICS
+        ================================================== */}
 
         <div className="admin-statistics">
 
-          {/* TOTAL PRODUK */}
+          {/* PRODUK */}
 
           <div className="admin-stat-card">
 
@@ -371,7 +337,7 @@ function AdminDashboard() {
           </div>
 
 
-          {/* TOTAL ARTIKEL */}
+          {/* ARTIKEL */}
 
           <div className="admin-stat-card">
 
@@ -396,7 +362,7 @@ function AdminDashboard() {
           </div>
 
 
-          {/* TOTAL LAYANAN */}
+          {/* LAYANAN */}
 
           <div className="admin-stat-card">
 
@@ -421,7 +387,7 @@ function AdminDashboard() {
           </div>
 
 
-          {/* TOTAL PENGGUNA */}
+          {/* PENGGUNA */}
 
           <div className="admin-stat-card">
 
@@ -448,9 +414,9 @@ function AdminDashboard() {
         </div>
 
 
-        {/* ==============================
+        {/* ==================================================
             WELCOME
-        ============================== */}
+        ================================================== */}
 
         <section className="admin-welcome">
 
@@ -464,6 +430,10 @@ function AdminDashboard() {
             PT Mitra Meditama Abadi.
           </p>
 
+
+          {/* ==================================================
+              QUICK ACTION
+          ================================================== */}
 
           <div className="admin-actions">
 
