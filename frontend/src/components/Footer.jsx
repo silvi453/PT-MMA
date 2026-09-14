@@ -115,32 +115,6 @@ function Footer() {
 
         </div>
 
-
-        {/* ============================= */}
-        {/* KOLOM 4: NEWSLETTER */}
-        {/* ============================= */}
-        <div className="footer-column footer-newsletter">
-
-          <h3>NEWSLETTER</h3>
-
-          <p>
-            Dapatkan informasi terbaru seputar produk dan layanan kami.
-          </p>
-
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Masukkan email Anda"
-              required
-            />
-
-            <button type="submit">
-              Send
-            </button>
-          </form>
-
-        </div>
-
       </div>
 
 
