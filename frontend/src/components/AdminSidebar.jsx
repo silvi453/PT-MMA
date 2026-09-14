@@ -41,7 +41,6 @@ function AdminSidebar() {
       const result = await response.json();
 
       setUnreadContacts(result.count || 0);
-
     } catch (error) {
       console.error(
         "Gagal mengambil notifikasi kontak:",
@@ -49,7 +48,6 @@ function AdminSidebar() {
       );
     }
   };
-
 
   /*
   |--------------------------------------------------------------------------
@@ -68,7 +66,6 @@ function AdminSidebar() {
     return () => clearInterval(interval);
   }, []);
 
-
   /*
   |--------------------------------------------------------------------------
   | LOGOUT
@@ -84,7 +81,6 @@ function AdminSidebar() {
     });
   };
 
-
   /*
   |--------------------------------------------------------------------------
   | CEK HALAMAN AKTIF
@@ -97,25 +93,32 @@ function AdminSidebar() {
       : "";
   };
 
+  /*
+  |--------------------------------------------------------------------------
+  | RENDER
+  |--------------------------------------------------------------------------
+  */
 
   return (
     <aside className="admin-sidebar">
 
       {/* =====================================================
-          LOGO ADMIN
+          LOGO PERUSAHAAN
       ===================================================== */}
 
       <div className="admin-sidebar-logo">
 
         <div className="admin-logo-small">
-          ✚
+          <img src="/images/logo.png" />
         </div>
 
-        <div>
-          <strong>PT MMA</strong>
+        <div className="admin-company-name">
+          <strong>
+            PT MITRA MEDITAMA ABADI
+          </strong>
 
           <span>
-            Admin Panel
+            Do The Best!
           </span>
         </div>
 

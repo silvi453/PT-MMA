@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminModal from "../components/AdminModal";
 import "./Admin.css";
 
 function AdminLogin() {
@@ -16,38 +15,41 @@ function AdminLogin() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Login gagal");
+        throw new Error(data.message || "Login admin gagal");
       }
 
-      // Simpan token
+      // Simpan token admin
       localStorage.setItem("token", data.token);
 
-      // Simpan data user
+      // Simpan data admin
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      alert("Login berhasil!");
+      alert("Login admin berhasil!");
 
-      // Pindah ke dashboard
+      // Masuk dashboard admin
       navigate("/admin/dashboard");
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Admin login error:", error);
 
-      alert(error.message || "Terjadi kesalahan saat login");
+      alert(error.message || "Terjadi kesalahan saat login admin");
     } finally {
       setLoading(false);
     }
@@ -57,10 +59,8 @@ function AdminLogin() {
     <div className="admin-login-page">
       <div className="admin-login-box">
 
-        <div className="admin-logo">
-          ✚
-        </div>
-
+        <img src="/images/logo.png" alt="PT Mitra Meditama Abadi" className="auth-logo" />
+        
         <h1>Admin Login</h1>
 
         <p>PT MITRA MEDITAMA ABADI</p>
@@ -72,7 +72,7 @@ function AdminLogin() {
 
             <input
               type="email"
-              placeholder="Masukkan email"
+              placeholder="Masukkan email admin"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -84,7 +84,7 @@ function AdminLogin() {
 
             <input
               type="password"
-              placeholder="Masukkan password"
+              placeholder="Masukkan password admin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

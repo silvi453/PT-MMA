@@ -8,14 +8,25 @@ function AdminContacts() {
   const [loading, setLoading] = useState(true);
   const [selectedContact, setSelectedContact] = useState(null);
 
+  // ==============================
+  // STATE BALASAN
+  // ==============================
+  const [replyMessage, setReplyMessage] = useState("");
+  const [replying, setReplying] = useState(false);
+  const [replyError, setReplyError] = useState("");
+  const [replySuccess, setReplySuccess] = useState("");
+  const [showReply, setShowReply] = useState(false);
+
+  // ==============================
+  // TOKEN
+  // ==============================
   const getToken = () => {
     return localStorage.getItem("token");
   };
 
-  // =========================================================
-  // AMBIL SEMUA PESAN
-  // =========================================================
-
+  // ==============================
+  // FETCH CONTACTS
+  // ==============================
   const fetchContacts = async () => {
     const token = getToken();
 
@@ -55,32 +66,24 @@ function AdminContacts() {
     }
   };
 
-  // =========================================================
-  // LOAD SAAT HALAMAN DIBUKA
-  // =========================================================
-
   useEffect(() => {
     fetchContacts();
   }, []);
 
-  // =========================================================
-  // TANDAI SUDAH DIBACA
-  // =========================================================
-
+  // ==============================
+  // MARK AS READ
+  // ==============================
   const markAsRead = async (id) => {
     const token = getToken();
 
     try {
-      const response = await fetch(
-        `${API_URL}/contacts/${id}/read`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/contacts/${id}/read`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Gagal menandai pesan");
@@ -89,14 +92,20 @@ function AdminContacts() {
       setContacts((prev) =>
         prev.map((contact) =>
           contact.id === id
-            ? { ...contact, is_read: true }
+            ? {
+                ...contact,
+                is_read: true,
+              }
             : contact
         )
       );
 
       setSelectedContact((prev) =>
         prev && prev.id === id
-          ? { ...prev, is_read: true }
+          ? {
+              ...prev,
+              is_read: true,
+            }
           : prev
       );
     } catch (error) {
@@ -104,22 +113,169 @@ function AdminContacts() {
     }
   };
 
-  // =========================================================
-  // BUKA PESAN
-  // =========================================================
-
+  // ==============================
+  // OPEN MESSAGE
+  // ==============================
   const handleOpenMessage = (contact) => {
     setSelectedContact(contact);
+
+    setReplyMessage("");
+    setReplyError("");
+    setReplySuccess("");
+    setShowReply(false);
 
     if (!contact.is_read) {
       markAsRead(contact.id);
     }
   };
 
-  // =========================================================
-  // HAPUS PESAN
-  // =========================================================
+  // ==============================
+  // OPEN REPLY
+  // ==============================
+  const handleOpenReply = () => {
+    setShowReply(true);
+    setReplyError("");
+    setReplySuccess("");
+  };
 
+  // ==============================
+  // CLOSE REPLY
+  // ==============================
+  const handleCloseReply = () => {
+    setShowReply(false);
+    setReplyMessage("");
+    setReplyError("");
+    setReplySuccess("");
+  };
+
+  // ==============================
+  // SEND REPLY
+  // ==============================
+  const handleReply = async () => {
+    if (!selectedContact) return;
+
+    if (!replyMessage.trim()) {
+      setReplyError("Pesan balasan wajib diisi.");
+      setReplySuccess("");
+      return;
+    }
+
+    const token = getToken();
+
+    if (!token) {
+      setReplyError("Sesi login tidak ditemukan.");
+      setReplySuccess("");
+      return;
+    }
+
+    setReplying(true);
+    setReplyError("");
+    setReplySuccess("");
+
+    try {
+      const response = await fetch(
+        `${API_URL}/contacts/${selectedContact.id}/reply`,
+        {
+          method: "POST",
+
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            reply: replyMessage.trim(),
+          }),
+        }
+      );
+
+      // ==============================
+      // AMBIL RESPONSE BACKEND
+      // ==============================
+      let result = {};
+
+      try {
+        result = await response.json();
+      } catch (jsonError) {
+        console.error(
+          "Response backend bukan JSON:",
+          jsonError
+        );
+      }
+
+      console.log("STATUS RESPONSE:", response.status);
+      console.log("RESPONSE BACKEND:", result);
+
+      // ==============================
+      // ERROR RESPONSE
+      // ==============================
+      if (!response.ok) {
+        const backendError =
+          result.error ||
+          result.message ||
+          result.errors?.reply?.[0] ||
+          `Server mengembalikan error ${response.status}.`;
+
+        throw new Error(backendError);
+      }
+
+      // ==============================
+      // DATA CONTACT TERBARU
+      // ==============================
+      const updatedContact = result.data;
+
+      if (!updatedContact) {
+        throw new Error(
+          "Balasan berhasil diproses, tetapi data pesan tidak ditemukan."
+        );
+      }
+
+      // ==============================
+      // UPDATE LIST
+      // ==============================
+      setContacts((prev) =>
+        prev.map((contact) =>
+          contact.id === selectedContact.id
+            ? updatedContact
+            : contact
+        )
+      );
+
+      // ==============================
+      // UPDATE DETAIL
+      // ==============================
+      setSelectedContact(updatedContact);
+
+      // ==============================
+      // RESET INPUT
+      // ==============================
+      setReplyMessage("");
+
+      setReplySuccess(
+        result.message ||
+          "Balasan berhasil dikirim dan disimpan."
+      );
+    } catch (error) {
+      console.error(
+        "Gagal mengirim balasan:",
+        error
+      );
+
+      setReplyError(
+        error.message ||
+          "Gagal mengirim balasan."
+      );
+
+      setReplySuccess("");
+    } finally {
+      setReplying(false);
+    }
+  };
+
+  // ==============================
+  // DELETE CONTACT
+  // ==============================
   const deleteContact = async (id) => {
     const yakin = window.confirm(
       "Yakin ingin menghapus pesan ini?"
@@ -134,6 +290,7 @@ function AdminContacts() {
         `${API_URL}/contacts/${id}`,
         {
           method: "DELETE",
+
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
@@ -146,19 +303,28 @@ function AdminContacts() {
       }
 
       setContacts((prev) =>
-        prev.filter((contact) => contact.id !== id)
+        prev.filter(
+          (contact) => contact.id !== id
+        )
       );
 
       setSelectedContact(null);
+
+      setReplyMessage("");
+      setReplyError("");
+      setReplySuccess("");
+      setShowReply(false);
     } catch (error) {
-      console.error("Gagal menghapus pesan:", error);
+      console.error(
+        "Gagal menghapus pesan:",
+        error
+      );
     }
   };
 
-  // =========================================================
-  // STATISTIK
-  // =========================================================
-
+  // ==============================
+  // COUNT
+  // ==============================
   const unreadCount = contacts.filter(
     (contact) => !contact.is_read
   ).length;
@@ -167,17 +333,30 @@ function AdminContacts() {
     (contact) => contact.is_read
   ).length;
 
-  // =========================================================
-  // RENDER
-  // =========================================================
+  // ==============================
+  // FORMAT DATE
+  // ==============================
+  const formatDate = (date) => {
+    if (!date) return "-";
+
+    return new Date(date).toLocaleString(
+      "id-ID",
+      {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
+  };
 
   return (
     <div className="admin-contacts-page">
 
-      {/* =====================================================
+      {/* =========================
           HEADER
-      ===================================================== */}
-
+      ========================== */}
       <div className="admin-contacts-header">
 
         <div>
@@ -185,11 +364,13 @@ function AdminContacts() {
             ADMIN PANEL
           </span>
 
-          <h1>Pesan Kontak</h1>
+          <h1>
+            Pesan Kontak
+          </h1>
 
           <p>
-            Kelola pesan dan pertanyaan yang dikirim
-            oleh pengunjung website.
+            Kelola pesan dan pertanyaan yang
+            dikirim oleh pengunjung website.
           </p>
         </div>
 
@@ -202,11 +383,9 @@ function AdminContacts() {
 
       </div>
 
-
-      {/* =====================================================
+      {/* =========================
           SUMMARY
-      ===================================================== */}
-
+      ========================== */}
       <div className="contact-summary">
 
         <div className="contact-summary-card">
@@ -216,12 +395,16 @@ function AdminContacts() {
           </div>
 
           <div>
-            <span>Total Pesan</span>
-            <strong>{contacts.length}</strong>
+            <span>
+              Total Pesan
+            </span>
+
+            <strong>
+              {contacts.length}
+            </strong>
           </div>
 
         </div>
-
 
         <div className="contact-summary-card unread">
 
@@ -230,12 +413,16 @@ function AdminContacts() {
           </div>
 
           <div>
-            <span>Belum Dibaca</span>
-            <strong>{unreadCount}</strong>
+            <span>
+              Belum Dibaca
+            </span>
+
+            <strong>
+              {unreadCount}
+            </strong>
           </div>
 
         </div>
-
 
         <div className="contact-summary-card">
 
@@ -244,31 +431,35 @@ function AdminContacts() {
           </div>
 
           <div>
-            <span>Sudah Dibaca</span>
-            <strong>{readCount}</strong>
+            <span>
+              Sudah Dibaca
+            </span>
+
+            <strong>
+              {readCount}
+            </strong>
           </div>
 
         </div>
 
       </div>
 
-
-      {/* =====================================================
+      {/* =========================
           CONTENT
-      ===================================================== */}
-
+      ========================== */}
       <div className="contacts-content">
 
-        {/* ===================================================
-            LIST PESAN
-        =================================================== */}
-
+        {/* =======================
+            LIST
+        ======================== */}
         <div className="contacts-list">
 
           <div className="contacts-list-header">
 
             <div>
-              <h2>Daftar Pesan</h2>
+              <h2>
+                Daftar Pesan
+              </h2>
 
               <p>
                 Pesan terbaru dari pengunjung
@@ -281,19 +472,19 @@ function AdminContacts() {
 
           </div>
 
-
           {/* LOADING */}
-
           {loading ? (
 
             <div className="contact-empty">
 
               <div className="contact-loading">
+
                 <div className="loading-spinner"></div>
 
                 <p>
                   Memuat pesan...
                 </p>
+
               </div>
 
             </div>
@@ -301,7 +492,6 @@ function AdminContacts() {
           ) : contacts.length === 0 ? (
 
             /* EMPTY */
-
             <div className="contact-empty">
 
               <div className="empty-icon">
@@ -313,16 +503,15 @@ function AdminContacts() {
               </h3>
 
               <p>
-                Pesan dari pengunjung akan muncul
-                di sini.
+                Pesan dari pengunjung akan
+                muncul di sini.
               </p>
 
             </div>
 
           ) : (
 
-            /* LIST */
-
+            /* ITEMS */
             <div className="contact-items">
 
               {contacts.map((contact) => (
@@ -330,7 +519,9 @@ function AdminContacts() {
                 <div
                   key={contact.id}
                   className={`contact-item ${
-                    !contact.is_read ? "unread" : ""
+                    !contact.is_read
+                      ? "unread"
+                      : ""
                   }`}
                   onClick={() =>
                     handleOpenMessage(contact)
@@ -338,7 +529,6 @@ function AdminContacts() {
                 >
 
                   {/* AVATAR */}
-
                   <div className="contact-avatar">
 
                     {(contact.name || "P")
@@ -347,9 +537,7 @@ function AdminContacts() {
 
                   </div>
 
-
                   {/* CONTENT */}
-
                   <div className="contact-item-content">
 
                     <div className="contact-item-top">
@@ -365,13 +553,17 @@ function AdminContacts() {
                         </span>
                       )}
 
-                    </div>
+                      {contact.reply && (
+                        <span className="replied-badge">
+                          Dibalas
+                        </span>
+                      )}
 
+                    </div>
 
                     <span className="contact-email">
                       {contact.email || "-"}
                     </span>
-
 
                     <p>
                       {contact.message ||
@@ -379,9 +571,6 @@ function AdminContacts() {
                     </p>
 
                   </div>
-
-
-                  {/* ARROW */}
 
                   <div className="contact-arrow">
                     →
@@ -397,11 +586,9 @@ function AdminContacts() {
 
         </div>
 
-
-        {/* ===================================================
-            DETAIL PESAN
-        =================================================== */}
-
+        {/* =======================
+            DETAIL
+        ======================== */}
         <div className="contact-detail">
 
           {!selectedContact ? (
@@ -417,8 +604,8 @@ function AdminContacts() {
               </h3>
 
               <p>
-                Pilih salah satu pesan di sebelah kiri
-                untuk melihat detailnya.
+                Pilih salah satu pesan di sebelah
+                kiri untuk melihat detailnya.
               </p>
 
             </div>
@@ -428,7 +615,6 @@ function AdminContacts() {
             <>
 
               {/* DETAIL HEADER */}
-
               <div className="detail-header">
 
                 <div>
@@ -447,18 +633,20 @@ function AdminContacts() {
 
                 <button
                   className="close-detail"
-                  onClick={() =>
-                    setSelectedContact(null)
-                  }
+                  onClick={() => {
+                    setSelectedContact(null);
+                    setShowReply(false);
+                    setReplyMessage("");
+                    setReplyError("");
+                    setReplySuccess("");
+                  }}
                 >
                   ×
                 </button>
 
               </div>
 
-
-              {/* PENGIRIM */}
-
+              {/* SENDER */}
               <div className="sender-info">
 
                 <div className="sender-avatar">
@@ -468,7 +656,6 @@ function AdminContacts() {
                     .toUpperCase()}
 
                 </div>
-
 
                 <div>
 
@@ -483,7 +670,8 @@ function AdminContacts() {
 
                   {selectedContact.phone && (
                     <span>
-                      📞 {selectedContact.phone}
+                      📞{" "}
+                      {selectedContact.phone}
                     </span>
                   )}
 
@@ -491,9 +679,7 @@ function AdminContacts() {
 
               </div>
 
-
-              {/* ISI PESAN */}
-
+              {/* PESAN PENGUNJUNG */}
               <div className="message-body">
 
                 <span>
@@ -507,9 +693,118 @@ function AdminContacts() {
 
               </div>
 
+              {/* =====================
+                  BALASAN TERSIMPAN
+              ====================== */}
+              {selectedContact.reply && (
 
-              {/* WAKTU */}
+                <div className="saved-reply-section">
 
+                  <div className="saved-reply-header">
+
+                    <span>
+                      BALASAN ADMIN
+                    </span>
+
+                    {selectedContact.replied_at && (
+                      <small>
+                        {formatDate(
+                          selectedContact.replied_at
+                        )}
+                      </small>
+                    )}
+
+                  </div>
+
+                  <div className="saved-reply-body">
+
+                    <p>
+                      {selectedContact.reply}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              )}
+
+              {/* =====================
+                  FORM BALAS
+              ====================== */}
+              {showReply && (
+
+                <div className="reply-section">
+
+                  <div className="reply-header">
+
+                    <span>
+                      BALAS PESAN
+                    </span>
+
+                    <small>
+                      Kepada:{" "}
+                      {selectedContact.email}
+                    </small>
+
+                  </div>
+
+                  <textarea
+                    value={replyMessage}
+                    onChange={(e) =>
+                      setReplyMessage(
+                        e.target.value
+                      )
+                    }
+                    placeholder="Tulis balasan untuk pengunjung..."
+                    rows="6"
+                    disabled={replying}
+                  />
+
+                  {/* ERROR */}
+                  {replyError && (
+                    <div className="reply-error">
+                      ⚠ {replyError}
+                    </div>
+                  )}
+
+                  {/* SUCCESS */}
+                  {replySuccess && (
+                    <div className="reply-success">
+                      ✓ {replySuccess}
+                    </div>
+                  )}
+
+                  <div className="reply-form-actions">
+
+                    <button
+                      className="reply-cancel-btn"
+                      onClick={
+                        handleCloseReply
+                      }
+                      disabled={replying}
+                    >
+                      Batal
+                    </button>
+
+                    <button
+                      className="reply-send-btn"
+                      onClick={handleReply}
+                      disabled={replying}
+                    >
+                      {replying
+                        ? "Mengirim..."
+                        : "📧 Kirim Balasan"}
+                    </button>
+
+                  </div>
+
+                </div>
+
+              )}
+
+              {/* =====================
+                  WAKTU PESAN
+              ====================== */}
               {selectedContact.created_at && (
 
                 <div className="message-date">
@@ -519,24 +814,18 @@ function AdminContacts() {
                   </span>
 
                   <strong>
-                    {new Date(
+                    {formatDate(
                       selectedContact.created_at
-                    ).toLocaleString("id-ID", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    )}
                   </strong>
 
                 </div>
 
               )}
 
-
-              {/* ACTION */}
-
+              {/* =====================
+                  ACTION BUTTON
+              ====================== */}
               <div className="detail-actions">
 
                 {!selectedContact.is_read && (
@@ -550,6 +839,17 @@ function AdminContacts() {
                     }
                   >
                     ✓ Tandai Sudah Dibaca
+                  </button>
+
+                )}
+
+                {!showReply && (
+
+                  <button
+                    className="reply-btn"
+                    onClick={handleOpenReply}
+                  >
+                    ↩ Balas
                   </button>
 
                 )}

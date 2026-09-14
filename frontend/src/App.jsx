@@ -26,6 +26,8 @@ import AdminModal from "./components/AdminModal";
 import AdminProfile from "./admin/AdminProfile";
 import AdminSidebar from "./components/AdminSidebar";
 import AdminContacts from "./admin/AdminContacts";
+import PesanSaya from "./pages/PesanSaya";
+import Profile from "./pages/Profile";
 
 function App() {
 const location = useLocation();
@@ -68,6 +70,8 @@ return (
       <Route path="/admin/profile" element={<AdminProfile />} />
       <Route path="/admin/notifikasi" element={<AdminSidebar />} />
       <Route path="/admin/contacts" element={<AdminContacts />} />
+      <Route path="/pesan-saya" element={<PesanSaya />} />
+      <Route path="/profil" element={<Profile />} />
     </Routes>
   </main>
   {showPublicLayout && <Footer />}

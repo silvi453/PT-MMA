@@ -14,6 +14,9 @@ function AdminProfile() {
     password_confirmation: "",
   });
 
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -23,7 +26,9 @@ function AdminProfile() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate("/admin", { replace: true });
+      navigate("/admin", {
+        replace: true,
+      });
       return;
     }
 
@@ -43,13 +48,13 @@ function AdminProfile() {
       );
 
       if (!response.ok) {
-        throw new Error("Gagal mengambil data profil.");
+        throw new Error(
+          "Gagal mengambil data profil."
+        );
       }
 
       const result = await response.json();
-
       const user = result.data;
-
       setForm({
         name: user.name || "",
         email: user.email || "",
@@ -57,9 +62,25 @@ function AdminProfile() {
         password_confirmation: "",
       });
 
+      if (user.profile_photo_url) {
+        setPhotoPreview(
+          user.profile_photo_url
+        );
+      } else if (user.profile_photo) {
+        const photoUrl =
+          user.profile_photo.startsWith("http")
+            ? user.profile_photo
+            : `${API_URL}/storage/${user.profile_photo}`;
+
+        setPhotoPreview(photoUrl);
+      }
+
     } catch (err) {
       console.error(err);
-      setError("Gagal mengambil data profil.");
+
+      setError(
+        "Gagal mengambil data profil."
+      );
     } finally {
       setLoading(false);
     }
@@ -72,43 +93,124 @@ function AdminProfile() {
     });
   };
 
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setError(
+        "Ukuran foto maksimal 2 MB."
+      );
+
+      e.target.value = "";
+
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      setError(
+        "File harus berupa gambar."
+      );
+
+      e.target.value = "";
+
+      return;
+    }
+
+    setError("");
+    setMessage("");
+
+    setProfilePhoto(file);
+
+    const previewUrl =
+      URL.createObjectURL(file);
+
+    setPhotoPreview(previewUrl);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
+    const token =
+      localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/admin", {
+        replace: true,
+      });
+      return;
+    }
 
     setSaving(true);
     setMessage("");
     setError("");
 
     try {
+      const formData = new FormData();
+
+      formData.append(
+        "name",
+        form.name
+      );
+
+      formData.append(
+        "email",
+        form.email
+      );
+
+      if (form.password) {
+        formData.append(
+          "password",
+          form.password
+        );
+      }
+
+      if (form.password_confirmation) {
+        formData.append(
+          "password_confirmation",
+          form.password_confirmation
+        );
+      }
+
+      if (profilePhoto) {
+        formData.append(
+          "profile_photo",
+          profilePhoto
+        );
+      }
+
+      formData.append(
+        "_method",
+        "PUT"
+      );
+
       const response = await fetch(
         `${API_URL}/api/profile`,
         {
-          method: "PUT",
+          method: "POST",
 
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization:
+              `Bearer ${token}`,
           },
 
-          body: JSON.stringify({
-            name: form.name,
-            email: form.email,
-            password: form.password || null,
-            password_confirmation:
-              form.password_confirmation || null,
-          }),
+          body: formData,
         }
       );
 
-      const result = await response.json();
+      const result =
+        await response.json();
 
       if (!response.ok) {
         if (result.errors) {
           const firstError =
-            Object.values(result.errors)[0];
+            Object.values(
+              result.errors
+            )[0];
 
           throw new Error(
             Array.isArray(firstError)
@@ -123,9 +225,12 @@ function AdminProfile() {
         );
       }
 
-      const oldUser = JSON.parse(
-        localStorage.getItem("user") || "{}"
-      );
+      const oldUser =
+        JSON.parse(
+          localStorage.getItem(
+            "user"
+          ) || "{}"
+        );
 
       const updatedUser = {
         ...oldUser,
@@ -134,8 +239,31 @@ function AdminProfile() {
 
       localStorage.setItem(
         "user",
-        JSON.stringify(updatedUser)
+        JSON.stringify(
+          updatedUser
+        )
       );
+
+      if (
+        result.data?.profile_photo_url
+      ) {
+        setPhotoPreview(
+          result.data.profile_photo_url
+        );
+      } else if (
+        result.data?.profile_photo
+      ) {
+        const photoUrl =
+          result.data.profile_photo.startsWith(
+            "http"
+          )
+            ? result.data.profile_photo
+            : `${API_URL}/storage/${result.data.profile_photo}`;
+
+        setPhotoPreview(photoUrl);
+      }
+
+      setProfilePhoto(null);
 
       setForm((prev) => ({
         ...prev,
@@ -163,9 +291,11 @@ function AdminProfile() {
   if (loading) {
     return (
       <div className="admin-profile-page">
+
         <div className="admin-profile-loading">
           Memuat profil...
         </div>
+
       </div>
     );
   }
@@ -182,26 +312,72 @@ function AdminProfile() {
           <button
             className="admin-back-button"
             onClick={() =>
-              navigate("/admin/dashboard")
+              navigate(
+                "/admin/dashboard"
+              )
             }
           >
             ← Kembali
           </button>
 
           <div>
-            <h1>Profil Admin</h1>
+
+            <h1>
+              Profil Admin
+            </h1>
 
             <p>
               Kelola informasi akun admin Anda.
             </p>
+
           </div>
 
         </div>
 
         <div className="admin-profile-card">
 
-          <div className="admin-profile-avatar">
-            👤
+          <div className="admin-profile-photo-section">
+
+            <div className="admin-profile-avatar">
+
+              {photoPreview ? (
+                <img
+                  src={photoPreview}
+                  alt="Foto Profil"
+                />
+              ) : (
+                <span>
+                  👤
+                </span>
+              )}
+
+            </div>
+
+            <div className="admin-profile-photo-content">
+
+              <label
+                htmlFor="profile-photo-input"
+                className="admin-photo-button"
+              >
+                📷 Pilih Foto
+              </label>
+
+              <input
+                id="profile-photo-input"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={
+                  handlePhotoChange
+                }
+                className="admin-photo-input"
+              />
+
+              <small>
+                JPG, PNG, atau WEBP. Maksimal 2 MB.
+              </small>
+
+            </div>
+
           </div>
 
           <div className="admin-profile-info">
@@ -221,6 +397,11 @@ function AdminProfile() {
               ✓ {message}
             </div>
           )}
+
+
+          {/* ==================================
+              ERROR
+          ================================== */}
 
           {error && (
             <div className="admin-profile-error">
@@ -311,7 +492,9 @@ function AdminProfile() {
                 type="button"
                 className="admin-profile-cancel"
                 onClick={() =>
-                  navigate("/admin/dashboard")
+                  navigate(
+                    "/admin/dashboard"
+                  )
                 }
               >
                 Batal
@@ -340,3 +523,4 @@ function AdminProfile() {
 }
 
 export default AdminProfile;
+

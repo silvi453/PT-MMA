@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 
-const API_URL = "http://127.0.0.1:8000/api/articles";
-const IMAGE_URL = "http://127.0.0.1:8000/storage/";
+const API_URL = "http://192.168.1.17:8000/api/articles";
+const IMAGE_URL = "http://192.168.1.17:8000/storage/";
 
 function Artikel() {
   const [articles, setArticles] = useState([]);

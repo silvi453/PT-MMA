@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://192.168.1.17:8000";
 
 function Kontak() {
   const [formData, setFormData] = useState({
@@ -15,6 +15,37 @@ function Kontak() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  // ========================================
+  // AMBIL USER YANG SEDANG LOGIN
+  // ========================================
+
+  useEffect(() => {
+    try {
+      const savedUser = localStorage.getItem("user");
+
+      if (!savedUser) {
+        return;
+      }
+
+      const user = JSON.parse(savedUser);
+
+      setFormData((prev) => ({
+        ...prev,
+        name: user.name || "",
+        email: user.email || "",
+      }));
+    } catch (error) {
+      console.error(
+        "Gagal membaca data user:",
+        error
+      );
+    }
+  }, []);
+
+  // ========================================
+  // HANDLE INPUT
+  // ========================================
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -22,33 +53,85 @@ function Kontak() {
       ...prev,
       [name]: value,
     }));
+
+    // Hilangkan error ketika user mulai mengetik
+    if (error) {
+      setError("");
+    }
+
+    // Hilangkan success ketika user mulai mengetik
+    if (success) {
+      setSuccess("");
+    }
   };
+
+  // ========================================
+  // KIRIM PESAN
+  // ========================================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ========================================
+    // CEK LOGIN TERLEBIH DAHULU
+    // ========================================
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setSuccess("");
+      setError(
+        "Silakan login terlebih dahulu untuk mengirim pesan."
+      );
+      return;
+    }
+
+    // ========================================
+    // MULAI PROSES KIRIM
+    // ========================================
 
     setLoading(true);
     setSuccess("");
     setError("");
 
     try {
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
       const response = await fetch(
         `${API_URL}/api/contacts`,
         {
           method: "POST",
-
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-
+          headers,
           body: JSON.stringify(formData),
         }
       );
 
       const result = await response.json();
 
+      // ========================================
+      // CEK RESPONSE
+      // ========================================
+
       if (!response.ok) {
+        // Kalau token sudah tidak valid
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+
+          window.dispatchEvent(
+            new Event("authChanged")
+          );
+
+          throw new Error(
+            "Sesi login Anda telah berakhir. Silakan login kembali."
+          );
+        }
+
+        // Error validasi Laravel
         if (result.errors) {
           const firstError =
             Object.values(result.errors)[0]?.[0];
@@ -65,16 +148,20 @@ function Kontak() {
         );
       }
 
+      // ========================================
+      // BERHASIL
+      // ========================================
+
       setSuccess(
         "Pesan berhasil dikirim. Terima kasih telah menghubungi kami."
       );
 
-      setFormData({
-        name: "",
-        email: "",
+      // Kosongkan hanya nomor telepon dan pesan
+      setFormData((prev) => ({
+        ...prev,
         phone: "",
         message: "",
-      });
+      }));
 
     } catch (error) {
       console.error(
@@ -150,7 +237,6 @@ function Kontak() {
 
           </div>
 
-
           {/* FORM */}
 
           <form
@@ -193,6 +279,7 @@ function Kontak() {
               required
             ></textarea>
 
+            {/* SUCCESS */}
 
             {success && (
               <div className="contact-success">
@@ -200,13 +287,13 @@ function Kontak() {
               </div>
             )}
 
+            {/* ERROR */}
 
             {error && (
               <div className="contact-error">
                 {error}
               </div>
             )}
-
 
             <button
               type="submit"

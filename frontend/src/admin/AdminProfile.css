@@ -187,3 +187,95 @@
   }
 
 }
+/* ========================================
+   FOTO PROFIL
+======================================== */
+
+.admin-profile-photo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.admin-profile-photo-section .admin-profile-avatar {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+
+  border-radius: 50%;
+  background: #f1f1f1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 40px;
+  margin-bottom: 0;
+
+  overflow: hidden;
+}
+
+.admin-profile-photo-section .admin-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-profile-photo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.admin-photo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #c62828;
+  color: white;
+
+  padding: 10px 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.admin-photo-button:hover {
+  background: #b71c1c;
+}
+
+.admin-photo-input {
+  display: none;
+}
+
+.admin-profile-photo-content small {
+  color: #888;
+  font-size: 12px;
+}
+
+
+/* ========================================
+   RESPONSIVE FOTO
+======================================== */
+
+@media (max-width: 768px) {
+
+  .admin-profile-photo-section {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .admin-profile-photo-content {
+    padding-top: 5px;
+  }
+
+}

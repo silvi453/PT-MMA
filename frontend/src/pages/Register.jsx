@@ -2,424 +2,336 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 
-const API_URL =
-"http://127.0.0.1:8000/api";
+const API_URL = "http://192.168.1.17:8000/api";
 
 function Register() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [form, setForm] = useState({
-name: "",
-email: "",
-password: "",
-password_confirmation: "",
-});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
 
-const [loading, setLoading] =
-useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-const [showPassword, setShowPassword] =
-useState(false);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-const [showConfirmPassword, setShowConfirmPassword] =
-useState(false);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-// ========================================
-// HANDLE INPUT
-// ========================================
+    setError("");
+    setSuccess("");
+  };
 
-const handleChange = (e) => {
-const {
-name,
-value,
-} = e.target;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-setForm((prev) => ({
-  ...prev,
-  [name]: value,
-}));
+    setLoading(true);
+    setError("");
+    setSuccess("");
 
-};
-
-// ========================================
-// REGISTER
-// ========================================
-
-const handleSubmit = async (e) => {
-e.preventDefault();
-
-if (!form.name.trim()) {
-  alert("Nama wajib diisi.");
-  return;
-}
-
-if (!form.email.trim()) {
-  alert("Email wajib diisi.");
-  return;
-}
-
-if (form.password.length < 6) {
-  alert(
-    "Password minimal 6 karakter."
-  );
-  return;
-}
-
-if (
-  form.password !==
-  form.password_confirmation
-) {
-  alert(
-    "Konfirmasi password tidak cocok."
-  );
-  return;
-}
-
-setLoading(true);
-
-try {
-  const response =
-    await fetch(
-      `${API_URL}/register`,
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type":
-            "application/json",
-
-          Accept:
-            "application/json",
-        },
-
-        body: JSON.stringify(form),
-      }
-    );
-
-  const result =
-    await response.json();
-
-  if (!response.ok) {
-    console.error(
-      "Register response:",
-      result
-    );
-
-    if (result.errors) {
-      const messages =
-        Object.values(
-          result.errors
-        )
-          .flat()
-          .join("\n");
-
-      alert(messages);
-    } else {
-      alert(
-        result.message ||
-          "Registrasi gagal."
+    // Cek password
+    if (
+      formData.password !==
+      formData.password_confirmation
+    ) {
+      setError(
+        "Password dan konfirmasi password tidak sama."
       );
+
+      setLoading(false);
+      return;
     }
 
-    return;
-  }
+    try {
+      const response = await fetch(
+        `${API_URL}/register`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
+      const result = await response.json();
 
-  // ========================================
-  // SIMPAN TOKEN
-  // ========================================
+      if (!response.ok) {
+        if (result.errors) {
+          const firstError =
+            Object.values(result.errors)[0]?.[0];
 
-  localStorage.setItem(
-    "token",
-    result.token
-  );
+          throw new Error(
+            firstError ||
+              "Data pendaftaran tidak valid."
+          );
+        }
 
-  localStorage.setItem(
-    "user",
-    JSON.stringify(
-      result.user
-    )
-  );
+        throw new Error(
+          result.message ||
+            "Pendaftaran gagal."
+        );
+      }
 
+      // Simpan data user
+      localStorage.setItem(
+        "token",
+        result.token
+      );
 
-  alert(
-    "Registrasi berhasil! Selamat datang 👋"
-  );
+      localStorage.setItem(
+        "user",
+        JSON.stringify(result.user)
+      );
 
-  // Ke halaman utama
-  navigate("/");
+      // Beritahu Navbar bahwa user sudah login
+      window.dispatchEvent(
+        new Event("authChanged")
+      );
 
-} catch (error) {
-  console.error(
-    "Register error:",
-    error
-  );
+      setSuccess(
+        "Pendaftaran berhasil! Mengalihkan..."
+      );
 
-  alert(
-    "Tidak dapat terhubung ke server Laravel."
-  );
+      // Tunggu sebentar supaya pesan terlihat
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
 
-} finally {
-  setLoading(false);
-}
+    } catch (error) {
+      console.error(
+        "Register error:",
+        error
+      );
 
-};
+      setError(
+        error.message ||
+          "Terjadi kesalahan saat mendaftar."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-return ( <div className="register-page">
+  return (
+    <main className="register-page">
 
-  {/* ==================================
-      LEFT
-  ================================== */}
+      <div className="register-card">
 
-  <div className="register-left">
+        {/* =========================
+            LOGO PERUSAHAAN
+        ========================== */}
 
-    <div className="register-brand">
+        <div className="register-brand">
 
-      <div className="register-logo">
-        PT
-      </div>
+          <div className="register-logo">
+            <img
+              src="/images/logo.png"
+              alt="Logo PT Mitra Meditama Abadi"
+            />
+          </div>
 
-      <div>
-        <strong>
-          PT-MMA
-        </strong>
+          <strong>
+            PT MITRA MEDITAMA ABADI
+          </strong>
 
-        <span>
-          Mitra Meditama Abadi
-        </span>
-      </div>
-
-    </div>
-
-
-    <div className="register-welcome">
-
-      <span>
-        SELAMAT DATANG
-      </span>
-
-      <h1>
-        Bergabung dengan
-        <br />
-        PT-MMA
-      </h1>
-
-      <p>
-        Buat akun untuk mendapatkan
-        pengalaman terbaik dalam
-        mengakses informasi dan
-        layanan PT-MMA.
-      </p>
-
-    </div>
-
-  </div>
-
-
-  {/* ==================================
-      RIGHT
-  ================================== */}
-
-  <div className="register-right">
-
-    <div className="register-card">
-
-      <div className="register-heading">
-
-        <h2>
-          Buat Akun
-        </h2>
-
-        <p>
-          Silakan lengkapi data
-          berikut untuk mendaftar.
-        </p>
-
-      </div>
-
-
-      <form
-        onSubmit={handleSubmit}
-      >
-
-        {/* NAME */}
-
-        <div className="register-group">
-
-          <label htmlFor="name">
-            Nama Lengkap
-          </label>
-
-          <input
-            id="name"
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={
-              handleChange
-            }
-            placeholder="Masukkan nama lengkap"
-            autoComplete="name"
-            required
-          />
+          <span>
+            Solusi Kesehatan, Hidup Lebih Sehat
+          </span>
 
         </div>
 
+        {/* =========================
+            HEADING
+        ========================== */}
 
-        {/* EMAIL */}
+        <div className="register-heading">
 
-        <div className="register-group">
+          <h2>Daftar Akun</h2>
 
-          <label htmlFor="email">
-            Email
-          </label>
-
-          <input
-            id="email"
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={
-              handleChange
-            }
-            placeholder="Masukkan email"
-            autoComplete="email"
-            required
-          />
+          <p>
+            Buat akun untuk dapat menghubungi
+            PT Mitra Meditama Abadi
+          </p>
 
         </div>
 
+        {/* =========================
+            ERROR
+        ========================== */}
 
-        {/* PASSWORD */}
+        {error && (
+          <div className="register-error">
+            {error}
+          </div>
+        )}
 
-        <div className="register-group">
+        {/* =========================
+            SUCCESS
+        ========================== */}
 
-          <label htmlFor="password">
-            Password
-          </label>
+        {success && (
+          <div className="register-success">
+            {success}
+          </div>
+        )}
 
-          <div className="password-wrapper">
+        {/* =========================
+            FORM
+        ========================== */}
+
+        <form
+          className="register-form"
+          onSubmit={handleSubmit}
+        >
+
+          {/* NAMA */}
+
+          <div className="register-group">
+
+            <label htmlFor="name">
+              Nama Lengkap
+            </label>
+
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Masukkan nama lengkap"
+              value={formData.name}
+              onChange={handleChange}
+              autoComplete="name"
+              required
+            />
+
+          </div>
+
+          {/* EMAIL */}
+
+          <div className="register-group">
+
+            <label htmlFor="email">
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Masukkan email"
+              value={formData.email}
+              onChange={handleChange}
+              autoComplete="email"
+              required
+            />
+
+          </div>
+
+          {/* PASSWORD */}
+
+          <div className="register-group">
+
+            <label htmlFor="password">
+              Password
+            </label>
 
             <input
               id="password"
-              type={
-                showPassword
-                  ? "text"
-                  : "password"
-              }
+              type="password"
               name="password"
-              value={
-                form.password
-              }
-              onChange={
-                handleChange
-              }
-              placeholder="Minimal 6 karakter"
+              placeholder="Minimal 8 karakter"
+              value={formData.password}
+              onChange={handleChange}
               autoComplete="new-password"
+              minLength={8}
               required
             />
 
-            <button
-              type="button"
-              onClick={() =>
-                setShowPassword(
-                  !showPassword
-                )
-              }
-            >
-              {showPassword
-                ? "Sembunyikan"
-                : "Lihat"}
-            </button>
-
           </div>
 
-        </div>
+          {/* KONFIRMASI PASSWORD */}
 
+          <div className="register-group">
 
-        {/* CONFIRM PASSWORD */}
-
-        <div className="register-group">
-
-          <label htmlFor="password_confirmation">
-            Konfirmasi Password
-          </label>
-
-          <div className="password-wrapper">
+            <label htmlFor="password_confirmation">
+              Konfirmasi Password
+            </label>
 
             <input
               id="password_confirmation"
-              type={
-                showConfirmPassword
-                  ? "text"
-                  : "password"
-              }
+              type="password"
               name="password_confirmation"
+              placeholder="Masukkan ulang password"
               value={
-                form.password_confirmation
+                formData.password_confirmation
               }
-              onChange={
-                handleChange
-              }
-              placeholder="Ulangi password"
+              onChange={handleChange}
               autoComplete="new-password"
+              minLength={8}
               required
             />
 
-            <button
-              type="button"
-              onClick={() =>
-                setShowConfirmPassword(
-                  !showConfirmPassword
-                )
-              }
-            >
-              {showConfirmPassword
-                ? "Sembunyikan"
-                : "Lihat"}
-            </button>
-
           </div>
+
+          {/* REGISTER BUTTON */}
+
+          <button
+            type="submit"
+            className="register-submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Mendaftarkan..."
+              : "Daftar →"}
+          </button>
+
+        </form>
+
+        {/* =========================
+            LOGIN
+        ========================== */}
+
+        <div className="register-login">
+
+          <span>
+            Sudah punya akun?
+          </span>
+
+          <Link
+            to="/login"
+            className="register-login-button"
+          >
+            Login sekarang →
+          </Link>
 
         </div>
 
+        {/* =========================
+            BACK
+        ========================== */}
 
-        {/* SUBMIT */}
+        <div className="register-back">
 
-        <button
-          type="submit"
-          className="register-submit"
-          disabled={loading}
-        >
-          {loading
-            ? "Mendaftarkan..."
-            : "Daftar"}
-        </button>
+          <Link to="/">
+            ← Kembali ke Beranda
+          </Link>
 
-      </form>
-
-
-      {/* LOGIN */}
-
-      <div className="register-login">
-
-        <span>
-          Sudah memiliki akun?
-        </span>
-
-        <Link to="/login">
-          Login di sini
-        </Link>
+        </div>
 
       </div>
 
-    </div>
-
-  </div>
-
-</div>
-
-);
+    </main>
+  );
 }
 
 export default Register;
+

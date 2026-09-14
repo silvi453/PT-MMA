@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 
-const API_URL = "http://127.0.0.1:8000/api/products";
-const IMAGE_URL = "http://127.0.0.1:8000/storage/";
+const API_URL = "http://192.168.1.17:8000/api/products";
+const IMAGE_URL = "http://192.168.1.17:8000/storage/";
 
 function Produk() {
   const [products, setProducts] = useState([]);

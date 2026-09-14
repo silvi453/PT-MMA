@@ -295,14 +295,31 @@ function AdminDashboard() {
           {/* PROFILE SAJA */}
           
           <button
-            className="admin-profile"
-            onClick={() =>
-              navigate("/admin/profile")
-            }
-          >
-            👤 {user?.name || "Admin"}
-          </button>
+  className="admin-profile"
+  onClick={() =>
+    navigate("/admin/profile")
+  }
+>
+  <div className="admin-dashboard-avatar">
 
+    {user?.profile_photo ? (
+      <img
+        src={
+          user.profile_photo.startsWith("http")
+            ? user.profile_photo
+            : `${API_URL}/storage/${user.profile_photo}`
+        }
+        alt="Foto Admin"
+      />
+        ) : (
+      <span>👤</span>
+       )}
+      </div>
+
+  <span>
+    {user?.name || "Admin"}
+  </span>
+    </button>
         </div>
 
 

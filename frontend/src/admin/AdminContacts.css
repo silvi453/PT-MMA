@@ -868,3 +868,662 @@
   }
 
 }
+/* ========================================
+   BALAS PESAN
+======================================== */
+
+.reply-section {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.reply-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.reply-header span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.reply-header small {
+  color: #888;
+  font-size: 12px;
+}
+
+.reply-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  outline: none;
+
+  resize: vertical;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  transition: 0.2s;
+}
+
+.reply-section textarea:focus {
+  border-color: #c62828;
+}
+
+.reply-send-btn {
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 11px 18px;
+
+  background: #c62828;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.reply-send-btn:hover {
+  background: #b71c1c;
+}
+
+.reply-send-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reply-error {
+  margin-top: 10px;
+
+  padding: 10px 12px;
+
+  background: #fdeaea;
+  color: #c62828;
+
+  border-radius: 7px;
+
+  font-size: 13px;
+}
+
+.reply-success {
+  margin-top: 10px;
+
+  padding: 10px 12px;
+
+  background: #e8f7ed;
+  color: #218838;
+
+  border-radius: 7px;
+
+  font-size: 13px;
+}
+
+.reply-btn {
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 16px;
+
+  background: #c62828;
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.reply-btn:hover {
+  background: #b71c1c;
+}
+
+/* ==========================================
+   REPLY / BALAS PESAN
+========================================== */
+
+.reply-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #c62828;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.reply-btn:hover {
+  background: #b71c1c;
+}
+
+
+/* ==========================================
+   SAVED REPLY
+========================================== */
+
+.saved-reply-section {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.saved-reply-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.saved-reply-header span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c62828;
+}
+
+.saved-reply-header small {
+  color: #888;
+  font-size: 12px;
+}
+
+.saved-reply-body {
+  background: #fff5f5;
+  border-left: 4px solid #c62828;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.saved-reply-body p {
+  margin: 0;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+
+/* ==========================================
+   REPLY FORM
+========================================== */
+
+.reply-section {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.reply-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.reply-header span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.reply-header small {
+  color: #888;
+  font-size: 12px;
+}
+
+.reply-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: 0.2s;
+}
+
+.reply-section textarea:focus {
+  border-color: #c62828;
+}
+
+
+/* ==========================================
+   REPLY BUTTON AREA
+========================================== */
+
+.reply-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.reply-cancel-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  background: #eee;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reply-cancel-btn:hover {
+  background: #ddd;
+}
+
+.reply-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reply-send-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  background: #c62828;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reply-send-btn:hover {
+  background: #b71c1c;
+}
+
+.reply-send-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ==========================================
+   REPLY MESSAGE
+========================================== */
+
+.reply-error {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #fdeaea;
+  color: #c62828;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.reply-success {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #e8f7ed;
+  color: #218838;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   REPLIED BADGE
+========================================== */
+
+.replied-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin-left: 6px;
+  border-radius: 5px;
+  background: #e8f7ed;
+  color: #218838;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .reply-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .reply-cancel-btn,
+  .reply-send-btn {
+    width: 100%;
+  }
+
+}
+
+/* =========================================================
+   FIX UKURAN ACTION BUTTON DETAIL
+========================================================= */
+
+.detail-actions {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px;
+}
+
+/* SEMUA TOMBOL DETAIL SAMA TINGGI */
+.detail-actions .read-btn,
+.detail-actions .reply-btn,
+.detail-actions .delete-btn {
+  height: 42px;
+  min-height: 42px;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  margin: 0;
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* TANDAI SUDAH DIBACA */
+.detail-actions .read-btn {
+  min-width: 180px;
+
+  border: 1px solid #c62828;
+  background: #c62828;
+  color: #ffffff;
+}
+
+.detail-actions .read-btn:hover {
+  background: #a91f1f;
+  border-color: #a91f1f;
+}
+
+/* BALAS */
+.detail-actions .reply-btn {
+  min-width: 95px;
+
+  border: 1px solid #c62828;
+  background: #c62828;
+  color: #ffffff;
+}
+
+.detail-actions .reply-btn:hover {
+  background: #a91f1f;
+  border-color: #a91f1f;
+}
+
+/* HAPUS */
+.detail-actions .delete-btn {
+  min-width: 135px;
+
+  border: 1px solid #e1e1e1;
+  background: #ffffff;
+  color: #c62828;
+}
+
+.detail-actions .delete-btn:hover {
+  border-color: #c62828;
+  background: #fff4f4;
+}
+
+/* DISABLED */
+.detail-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* =========================================================
+   FIX TOMBOL FORM BALAS
+========================================================= */
+
+.reply-form-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.reply-form-actions .reply-cancel-btn,
+.reply-form-actions .reply-send-btn {
+  height: 42px;
+  min-height: 42px;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  padding: 0 18px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* BATAL */
+.reply-form-actions .reply-cancel-btn {
+  min-width: 100px;
+
+  border: none;
+  background: #eeeeee;
+  color: #333333;
+}
+
+.reply-form-actions .reply-cancel-btn:hover {
+  background: #dddddd;
+}
+
+/* KIRIM BALASAN */
+.reply-form-actions .reply-send-btn {
+  min-width: 160px;
+
+  border: none;
+  background: #c62828;
+  color: #ffffff;
+}
+
+.reply-form-actions .reply-send-btn:hover {
+  background: #b71c1c;
+}
+
+.reply-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MOBILE ACTION BUTTON
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .detail-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .detail-actions .read-btn,
+  .detail-actions .reply-btn,
+  .detail-actions .delete-btn {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .reply-form-actions {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .reply-form-actions .reply-cancel-btn,
+  .reply-form-actions .reply-send-btn {
+    width: 100%;
+    min-width: 100%;
+  }
+
+}
+
+.reply-section {
+  margin: 22px;
+  padding: 18px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #fafafa;
+
+  box-sizing: border-box;
+}
+
+/* HEADER BALASAN */
+.reply-header {
+  margin-bottom: 12px;
+}
+
+/* TEXTAREA */
+.reply-section textarea {
+  width: 100%;
+  min-height: 120px;
+
+  box-sizing: border-box;
+
+  padding: 12px 14px;
+
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+
+  resize: vertical;
+  outline: none;
+
+  transition: border-color 0.2s ease;
+}
+
+.reply-section textarea:focus {
+  border-color: #c62828;
+}
+
+/* ERROR & SUCCESS */
+.reply-section .reply-error,
+.reply-section .reply-success {
+  margin-top: 10px;
+}
+
+/* TOMBOL BALAS */
+.reply-section .reply-form-actions {
+  margin-top: 14px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .reply-section {
+    margin: 17px;
+    padding: 15px;
+  }
+
+  .reply-section textarea {
+    min-height: 110px;
+  }
+}
+.saved-reply-section {
+  margin: 22px;
+  padding: 18px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+
+  background: #fffafa;
+  box-sizing: border-box;
+}
+
+/* HEADER BALASAN */
+.saved-reply-header {
+  margin-bottom: 12px;
+}
+
+/* ISI BALASAN */
+.saved-reply-body {
+  padding: 14px 16px;
+
+  border-left: 4px solid #c62828;
+  border-radius: 8px;
+
+  background: #fff5f5;
+
+  box-sizing: border-box;
+}
+
+.saved-reply-body p {
+  margin: 0;
+
+  color: #444;
+  font-size: 13px;
+  line-height: 1.7;
+
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .saved-reply-section {
+    margin: 17px;
+    padding: 15px;
+  }
+
+  .saved-reply-body {
+    padding: 13px 14px;
+  }
+}
+
+
